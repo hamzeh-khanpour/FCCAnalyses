@@ -7,6 +7,33 @@ project(FCCAnalyses CXX)
 #needed for ACTS
 cmake_policy(SET CMP0057 NEW)
 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE CACHE BOOL "RPATH USE LINK PATH")
+
+#--- enable unit testing capabilities ------------------------------------------
+include(CTest)
+option(USE_EXTERNAL_CATCH2 "Link against an external Catch2 v3 static library, otherwise build it locally" ON)
+
+
+
+option(WITH_DD4HEP "Build analyzers that need DD4hep" OFF)
+
+#--- Set a better default for installation directory---------------------------
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/install" CACHE PATH "default install path" FORCE)
+endif()
+
+
+
+#--- Declare C++ Standard -----------------------------------------------------
+
+set(CMAKE_CXX_STANDARD 17 CACHE STRING "")
+if(NOT CMAKE_CXX_STANDARD MATCHES "17")
+  message(FATAL_ERROR "Unsupported C++ standard: ${CMAKE_CXX_STANDARD}")
+endif()
+message (STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
+
+
+
 find_package(ROOT COMPONENTS ROOTDataFrame)
 include(${ROOT_USE_FILE})
 
@@ -18,7 +45,7 @@ find_package(podio)
 # Use GNU-style hierarchy for installing build products
 include(GNUInstallDirs)
 
-	
+
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 find_package(FastJet)
@@ -29,6 +56,19 @@ set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
 set(INSTALL_INCLUDE_DIR include CACHE PATH
   "Installation directory for header files")
+
+
+
+
+#--- add CMake infrastructure --------------------------------------------------
+include(cmake/FCCAnalysesCreateConfig.cmake)
+
+
+file(COPY bin/fccanalysis
+  DESTINATION ${CMAKE_BINARY_DIR}
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+install(PROGRAMS bin/fccanalysis DESTINATION bin)
 
 
 file(GLOB _run_python_files config/*.py)
@@ -60,8 +100,17 @@ message(STATUS "Library---------------------- main: ${AWKWARD_LIBRARIES}")
 add_subdirectory(analyzers/dataframe)
 
 
+option(FCCANALYSES_CASESTUDIES "Build the case studies" OFF)
+if(FCCANALYSES_CASESTUDIES)
+  add_subdirectory(analyzers/dataframe/case-studies FCCANALYSES_CASESTUDIES)
+endif()
+
 option(FCCANALYSES_DOCUMENTATION "Whether or not to create doxygen doc target." ON)
 
 if(FCCANALYSES_DOCUMENTATION)
   include(cmake/FCCANALYSESDoxygen.cmake)
+endif()
+
+if(BUILD_TESTING)
+  add_subdirectory(tests)
 endif()
