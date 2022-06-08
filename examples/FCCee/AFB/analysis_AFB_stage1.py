@@ -1,12 +1,12 @@
 #Mandatory: List of processes
 processList = {
-    'p8_ee_Zbb_ecm91':{'fraction':0.01},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
+    'p8_ee_Zbb_ecm91':{'fraction':0.1},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
 #    'p8_ee_WW_ecm240':{'fraction':0.5, 'chunks':2}, #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
 #    'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
 }
 
 #Mandatory: Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics
-prodTag     = "FCCee/spring2021/IDEA/"
+prodTag     = "FCCee/spring2021/IDEA/" 
 
 #Optional: output directory, default is local running directory
 outputDir   = "outputs/FCCee/AFB/stage1"
@@ -39,6 +39,7 @@ class RDFanalysis():
             df
                .Alias("Electron0", "Electron#0.index")
                .Alias("Muon0", "Muon#0.index")
+               
                .Define("electrons", "ReconstructedParticle::get(Electron0, ReconstructedParticles)")
                .Define("muons", "ReconstructedParticle::get(Muon0, ReconstructedParticles)")
 
@@ -76,6 +77,38 @@ class RDFanalysis():
                .Define("muon_phi", "ReconstructedParticle::get_phi(muons)")
                .Define("muon_mass", "ReconstructedParticle::get_mass(muons)")
                .Define("muon_charge", "ReconstructedParticle::get_charge(muons)")               
+
+#################--------------------------------------------------------------------------
+
+               .Alias("Particle0", "Particle#0.index")
+               
+               .Define("MC_px",         "MCParticle::get_px(Particle)")
+               .Define("MC_py",         "MCParticle::get_py(Particle)")
+               .Define("MC_pz",         "MCParticle::get_pz(Particle)")
+               .Define("MC_p",          "MCParticle::get_p(Particle)")
+               .Define("MC_e",          "MCParticle::get_e(Particle)")
+               .Define("MC_pdg",        "MCParticle::get_pdg(Particle)")
+               .Define("MC_charge",     "MCParticle::get_charge(Particle)")
+               .Define("MC_mass",       "MCParticle::get_mass(Particle)")
+               .Define("MC_status",     "MCParticle::get_genStatus(Particle)")
+               .Define("MC_vertex_x",   "MCParticle::get_vertex_x(Particle)")
+               .Define("MC_vertex_y",   "MCParticle::get_vertex_y(Particle)")
+               .Define("MC_vertex_z",   "MCParticle::get_vertex_z(Particle)")
+
+
+#################--------------------------------------------------------------------------
+
+
+               .Define("RP_px",         "ReconstructedParticle::get_px(ReconstructedParticles)")
+               .Define("RP_py",         "ReconstructedParticle::get_py(ReconstructedParticles)")
+               .Define("RP_pz",         "ReconstructedParticle::get_pz(ReconstructedParticles)")
+               .Define("RP_p",          "ReconstructedParticle::get_p(ReconstructedParticles)")
+               .Define("RP_e",          "ReconstructedParticle::get_e(ReconstructedParticles)")
+               .Define("RP_charge",     "ReconstructedParticle::get_charge(ReconstructedParticles)")
+               .Define("RP_mass",       "ReconstructedParticle::get_mass(ReconstructedParticles)")
+
+
+
         )
         return df2
 
@@ -85,6 +118,8 @@ class RDFanalysis():
         branchList = [
                 "leptons", "lepton_e", "lepton_pt", "lepton_mass", "lepton_charge", "lepton_eta", "lepton_phi",  
                 "electrons", "electron_e", "electron_pt", "electron_mass", "electron_charge", "electron_eta", "electron_phi",               
-                "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi"
+                "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi",
+                "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", "MC_pdg", "MC_charge", "MC_mass", "MC_status", "MC_vertex_x", "MC_vertex_y", "MC_vertex_z",
+                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass"
         ]
         return branchList
