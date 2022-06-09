@@ -114,8 +114,6 @@ class RDFanalysis():
 
 
 
-
-
         )
         return df2
 
