@@ -112,6 +112,21 @@ class RDFanalysis():
 
 
 
+               .Define('EVT_thrust',     'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('RP_thrustangle', 'Algorithms::getAxisCosTheta(EVT_thrust, RP_px, RP_py, RP_pz)')
+               .Define('EVT_thrust_x',   "EVT_thrust.at(0)")
+               .Define('EVT_thrust_y',   "EVT_thrust.at(1)")
+               .Define('EVT_thrust_z',   "EVT_thrust.at(2)")
+               .Define('EVT_thrust_val', "EVT_thrust.at(3)")
+
+               .Define('EVT_sphericity',     'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('RP_sphericityangle', 'Algorithms::getAxisCosTheta(EVT_sphericity, RP_px, RP_py, RP_pz)')
+               .Define('EVT_sphericity_x',   "EVT_sphericity.at(0)")
+               .Define('EVT_sphericity_y',   "EVT_sphericity.at(1)")
+               .Define('EVT_sphericity_z',   "EVT_sphericity.at(2)")
+               .Define('EVT_sphericity_val', "EVT_sphericity.at(3)")
+
+
 
 
         )
@@ -125,6 +140,9 @@ class RDFanalysis():
                 "electrons", "electron_e", "electron_pt", "electron_mass", "electron_charge", "electron_eta", "electron_phi",               
                 "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi",
                 "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", "MC_pdg", "MC_charge", "MC_mass", "MC_status", "MC_vertex_x", "MC_vertex_y", "MC_vertex_z",
-                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass"
+                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
+                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
+                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
+                "RP_thrustangle", "RP_sphericityangle"
         ]
         return branchList
