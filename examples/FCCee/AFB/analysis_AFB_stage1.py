@@ -108,6 +108,27 @@ class RDFanalysis():
                .Define("RP_mass",       "ReconstructedParticle::get_mass(ReconstructedParticles)")
 
 
+#################--------------------------------------------------------------------------
+
+               .Alias("Particle0", "Particle#0.index")
+
+               .Define("MC_px",         "MCParticle::get_px(Particle)")
+               .Define("MC_py",         "MCParticle::get_py(Particle)")
+               .Define("MC_pz",         "MCParticle::get_pz(Particle)")
+               .Define("MC_p",          "MCParticle::get_p(Particle)")
+               .Define("MC_e",          "MCParticle::get_e(Particle)")
+               .Define("MC_pdg",        "MCParticle::get_pdg(Particle)")
+               .Define("MC_charge",     "MCParticle::get_charge(Particle)")
+               .Define("MC_mass",       "MCParticle::get_mass(Particle)")
+               .Define("MC_status",     "MCParticle::get_genStatus(Particle)")
+               .Define("MC_vertex_x",   "MCParticle::get_vertex_x(Particle)")
+               .Define("MC_vertex_y",   "MCParticle::get_vertex_y(Particle)")
+               .Define("MC_vertex_z",   "MCParticle::get_vertex_z(Particle)")
+
+
+#################--------------------------------------------------------------------------
+
+
 
         )
         return df2
