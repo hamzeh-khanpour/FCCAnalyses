@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1654876313151,
+  "lastUpdate": 1654876314583,
   "repoUrl": "https://github.com/hamzeh-khanpour/FCCAnalyses",
   "entries": {
     "Benchmark": [
@@ -1262,6 +1262,40 @@ window.BENCHMARK_DATA = {
             "unit": "Seconds",
             "range": 10,
             "extra": "Analysis path: examples/FCCee/flavour/Bc2TauNu"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "58598278+hamzeh-khanpour@users.noreply.github.com",
+            "name": "Hamzeh Khanpour",
+            "username": "hamzeh-khanpour"
+          },
+          "committer": {
+            "email": "58598278+hamzeh-khanpour@users.noreply.github.com",
+            "name": "Hamzeh Khanpour",
+            "username": "hamzeh-khanpour"
+          },
+          "distinct": true,
+          "id": "6ef199d8bf1ee5f5535d3e4939ca645683a5ba2f",
+          "message": "Create FCCAnalyses_clement.pdf",
+          "timestamp": "2022-06-10T20:04:14+04:30",
+          "tree_id": "5055f6c9c0cc2cbbc6bd28ee5bca7d04fdebae2d",
+          "url": "https://github.com/hamzeh-khanpour/FCCAnalyses/commit/6ef199d8bf1ee5f5535d3e4939ca645683a5ba2f"
+        },
+        "date": 1654876314201,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "prod | Events processed per second: examples/FCCee/higgs/mH-recoil/mumu",
+            "value": 8.460239664808379,
+            "unit": "Evt/s"
+          },
+          {
+            "name": "prod | Events processed per second: examples/FCCee/flavour/Bc2TauNu",
+            "value": 6.5346810772374795,
+            "unit": "Evt/s"
           }
         ]
       }
