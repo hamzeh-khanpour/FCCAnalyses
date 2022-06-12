@@ -1,3 +1,5 @@
+# Forward-Backward-Asymmetry June 2022
+
 #Mandatory: List of processes
 processList = {
     'p8_ee_Zbb_ecm91':{'fraction':0.01},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
