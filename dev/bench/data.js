@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1655827392430,
+  "lastUpdate": 1655827393977,
   "repoUrl": "https://github.com/hamzeh-khanpour/FCCAnalyses",
   "entries": {
     "Benchmark": [
@@ -1694,6 +1694,40 @@ window.BENCHMARK_DATA = {
             "unit": "Seconds",
             "range": 10,
             "extra": "Analysis path: examples/FCCee/flavour/Bc2TauNu"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "58598278+hamzeh-khanpour@users.noreply.github.com",
+            "name": "Hamzeh Khanpour",
+            "username": "hamzeh-khanpour"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7a574e19068fdfe78e17a56ce44ef0e839dd6578",
+          "message": "Merge branch 'HEP-FCC:master' into master",
+          "timestamp": "2022-06-21T20:23:21+04:30",
+          "tree_id": "48a4474f3e485e85dd8854fcbeee49641b4e17ca",
+          "url": "https://github.com/hamzeh-khanpour/FCCAnalyses/commit/7a574e19068fdfe78e17a56ce44ef0e839dd6578"
+        },
+        "date": 1655827393598,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "prod | Events processed per second: examples/FCCee/higgs/mH-recoil/mumu",
+            "value": 6.995816374698123,
+            "unit": "Evt/s"
+          },
+          {
+            "name": "prod | Events processed per second: examples/FCCee/flavour/Bc2TauNu",
+            "value": 5.471432329294781,
+            "unit": "Evt/s"
           }
         ]
       }
