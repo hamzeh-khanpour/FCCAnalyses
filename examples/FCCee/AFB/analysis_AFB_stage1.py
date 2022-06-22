@@ -82,6 +82,9 @@ class RDFanalysis():
 
 #################--------------------------------------------------------------------------
 
+               .Alias("MCRecoAssociations0", "MCRecoAssociations#0.index")
+               .Alias("MCRecoAssociations1", "MCRecoAssociations#1.index")
+
                .Alias("Particle0", "Particle#0.index")
                
                .Define("MC_px",         "MCParticle::get_px(Particle)")
