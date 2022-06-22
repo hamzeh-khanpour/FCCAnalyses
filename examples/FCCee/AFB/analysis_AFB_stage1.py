@@ -2,7 +2,7 @@
 
 #Mandatory: List of processes
 processList = {
-    'p8_ee_Zbb_ecm91':{'fraction':0.01},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
+    'p8_ee_Zbb_ecm91':{'fraction':0.001},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
 #    'p8_ee_WW_ecm240':{'fraction':0.5, 'chunks':2}, #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
 #    'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
 }
@@ -211,21 +211,31 @@ class RDFanalysis():
 
 
 
-               .Define('EVT_thrust',     'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
-               .Define('EVT_thrust_x',   "EVT_thrust.at(0)")
-               .Define('EVT_thrust_y',   "EVT_thrust.at(1)")
-               .Define('EVT_thrust_z',   "EVT_thrust.at(2)")
-               .Define('EVT_thrust_val', "EVT_thrust.at(3)")
+               .Define('EVT_thrust',      'minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_thrust_val',  'EVT_thrust.at(0)')
+               .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
+               .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
+               .Define('EVT_thrust_y',    'EVT_thrust.at(3)')
+               .Define('EVT_thrust_y_err','EVT_thrust.at(4)')
+               .Define('EVT_thrust_z',    'EVT_thrust.at(5)')
+               .Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
+               
                .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
+               
 
-               .Define('EVT_sphericity',     'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
-               .Define('EVT_sphericity_x',   "EVT_sphericity.at(0)")
-               .Define('EVT_sphericity_y',   "EVT_sphericity.at(1)")
-               .Define('EVT_sphericity_z',   "EVT_sphericity.at(2)")
-               .Define('EVT_sphericity_val', "EVT_sphericity.at(3)")
+               .Define('EVT_sphericity',      'minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_sphericity_val',  'EVT_sphericity.at(0)')
+               .Define('EVT_sphericity_x',    'EVT_sphericity.at(1)')
+               .Define('EVT_sphericity_x_err','EVT_sphericity.at(2)')
+               .Define('EVT_sphericity_y',    'EVT_sphericity.at(3)')
+               .Define('EVT_sphericity_y_err','EVT_sphericity.at(4)')
+               .Define('EVT_sphericity_z',    'EVT_sphericity.at(5)')
+               .Define('EVT_sphericity_z_err','EVT_sphericity.at(6)')
+               
 
                .Define('RP_thrustangle', 'Algorithms::getAxisCosTheta(EVT_thrust, RP_px, RP_py, RP_pz)')
                .Define('RP_sphericityangle', 'Algorithms::getAxisCosTheta(EVT_sphericity, RP_px, RP_py, RP_pz)')
+               
 
 
 #################--------------------------------------------------------------------------
