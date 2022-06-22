@@ -211,7 +211,7 @@ class RDFanalysis():
 
 
 
-               .Define('EVT_thrust',      'minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
                .Define('EVT_thrust_val',  'EVT_thrust.at(0)')
                .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
                .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
@@ -223,7 +223,7 @@ class RDFanalysis():
                .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
                
 
-               .Define('EVT_sphericity',      'minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_sphericity',     'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
                .Define('EVT_sphericity_val',  'EVT_sphericity.at(0)')
                .Define('EVT_sphericity_x',    'EVT_sphericity.at(1)')
                .Define('EVT_sphericity_x_err','EVT_sphericity.at(2)')
