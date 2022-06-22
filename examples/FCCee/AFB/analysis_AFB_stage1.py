@@ -11,7 +11,7 @@ processList = {
 prodTag     = "FCCee/spring2021/IDEA/" 
 
 #Optional: output directory, default is local running directory
-outputDir   = "outputs/FCCee/AFB/stage1"
+outputDir   = "outputs/FCCee/AFB/stage1" 
 
 #Optional: analysisName, default is ""
 #analysisName = "My Analysis"
@@ -40,11 +40,10 @@ class RDFanalysis():
         df2 = (
             df
                .Alias("Electron0", "Electron#0.index")
-               .Alias("Muon0", "Muon#0.index")
+               .Define("electrons", "ReconstructedParticle::get(Electron0, ReconstructedParticles)")               
                
-               .Define("electrons", "ReconstructedParticle::get(Electron0, ReconstructedParticles)")
+               .Alias("Muon0", "Muon#0.index")
                .Define("muons", "ReconstructedParticle::get(Muon0, ReconstructedParticles)")
-
 
 
 
@@ -92,6 +91,7 @@ class RDFanalysis():
 
 #################--------------------------------------------------------------------------
 
+
                .Alias("MCRecoAssociations0", "MCRecoAssociations#0.index")
                .Alias("MCRecoAssociations1", "MCRecoAssociations#1.index")
 
@@ -116,7 +116,7 @@ class RDFanalysis():
 
 
 
-                .Define("selected_jets", "ReconstructedParticle::sel_p(10.0)(Jet)") #select only jets with a pT > 10 GeV  
+                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)") #select only jets with a pT > 0 GeV  
                 .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)") #count how many jets are in the event in total
                 .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)") #transverse momentum pT
 		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)") #pseudorapidity eta
