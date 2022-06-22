@@ -103,7 +103,8 @@ class RDFanalysis():
                .Define("MC_p",          "MCParticle::get_p(Particle)")
                .Define("MC_e",          "MCParticle::get_e(Particle)")
                .Define("MC_pdg",        "MCParticle::get_pdg(Particle)")
-               .Define("MC_charge",     "MCParticle::get_charge(Particle)")
+               .Define("MC_theta",      "MCParticle::get_theta(Particle)")
+               .Define("MC_charge",     "MCParticle::get_charge(Particle)")               
                .Define("MC_mass",       "MCParticle::get_mass(Particle)")
                .Define("MC_status",     "MCParticle::get_genStatus(Particle)")
                .Define("MC_vertex_x",   "MCParticle::get_vertex_x(Particle)")
@@ -114,13 +115,82 @@ class RDFanalysis():
 #################--------------------------------------------------------------------------
 
 
-               .Define("RP_px",         "ReconstructedParticle::get_px(ReconstructedParticles)")
-               .Define("RP_py",         "ReconstructedParticle::get_py(ReconstructedParticles)")
-               .Define("RP_pz",         "ReconstructedParticle::get_pz(ReconstructedParticles)")
-               .Define("RP_p",          "ReconstructedParticle::get_p(ReconstructedParticles)")
-               .Define("RP_e",          "ReconstructedParticle::get_e(ReconstructedParticles)")
-               .Define("RP_charge",     "ReconstructedParticle::get_charge(ReconstructedParticles)")
-               .Define("RP_mass",       "ReconstructedParticle::get_mass(ReconstructedParticles)")
+
+                .Define("selected_jets", "ReconstructedParticle::sel_p(10.0)(Jet)") #select only jets with a pT > 10 GeV  
+                .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)") #count how many jets are in the event in total
+                .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)") #transverse momentum pT
+		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)") #pseudorapidity eta
+                .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)") # Energy of jet
+                .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)") # create branch with jet px
+                .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)") # create branch with jet py
+                .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)") # create branch with jet pz 
+                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)") # create branch with jet eta
+                
+ 
+
+               .Alias("Jet3","Jet#3.index") 
+               .Define("JET_btag", "ReconstructedParticle::getJet_btag(Jet3, ParticleIDs, ParticleIDs_0)")
+               .Define("EVT_nbtag", "ReconstructedParticle::getJet_ntags(JET_btag)")
+
+
+
+
+               .Define("RecoParticles_wo_electrons",  "ReconstructedParticle::remove(ReconstructedParticles,electrons)")
+               .Define("RecoParticles_wo_leptons",  "ReconstructedParticle::remove(RecoParticles_wo_electrons,muons)")
+
+
+               .Define("RP_px",         "ReconstructedParticle::get_px(RecoParticles_wo_leptons)")
+               .Define("RP_py",         "ReconstructedParticle::get_py(RecoParticles_wo_leptons)")
+               .Define("RP_pz",         "ReconstructedParticle::get_pz(RecoParticles_wo_leptons)")
+               .Define("RP_p",          "ReconstructedParticle::get_p(RecoParticles_wo_leptons)")
+               .Define("RP_e",          "ReconstructedParticle::get_e(RecoParticles_wo_leptons)")
+               .Define("RP_charge",     "ReconstructedParticle::get_charge(RecoParticles_wo_leptons)")
+               .Define("RP_mass",       "ReconstructedParticle::get_mass(RecoParticles_wo_leptons)")
+               
+                .Define("pseudo_jets",    "JetClusteringUtils::set_pseudoJets_xyzm(RP_px, RP_py, RP_pz, RP_mass)")
+
+
+
+#################--------------------------------------------------------------------------
+
+
+
+
+             #=================================================================================
+                    # re-clustering the jet, Generalised-kt for e+e- (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 2 jets
+             #===================================================================================
+              
+               .Define("tw_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 1)(pseudo_jets)")  #get the jets out of the struct
+               .Define("tw_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(tw_FCCAnalysesJets_ee_genkt_ES)")    #get the jets constituents out of the struct
+               .Define("tw_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(tw_FCCAnalysesJets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_e",        "JetClusteringUtils::get_e(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_theta",        "JetClusteringUtils::get_theta(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(tw_jets_ee_genkt_ES, Particle)")
+               .Define("tw_jets_ee_genkt_ES_btag_true",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 1.0)")
+               .Define("tw_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 0.80)")
+               .Define("tw_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(tw_jets_ee_genkt_ES_flavour, 0.10)")
+               
+               
+               #====================================================================================================================
+                    # re-clustering the jet, Generalised-kt for e+e- (clustering_ee_genkt_E Scheme)-Exclusive jet selection up to 3 jets
+               #======================================================================================================================              
+              
+               .Define("th_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 3, 3, 1, 0, 1)(pseudo_jets)")  #get the jets out of the struct
+               .Define("th_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(th_FCCAnalysesJets_ee_genkt_ES)")    #get the jets constituents out of the struct
+               .Define("th_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(th_FCCAnalysesJets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_e",        "JetClusteringUtils::get_e(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_theta",        "JetClusteringUtils::get_theta(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(th_jets_ee_genkt_ES, Particle)")
+               .Define("th_jets_ee_genkt_ES_btag_true",      "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 1.0)")
+               .Define("th_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 0.80)")
+               .Define("th_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(th_jets_ee_genkt_ES_flavour, 0.10)")
+              
 
 
 #################--------------------------------------------------------------------------
@@ -140,6 +210,9 @@ class RDFanalysis():
                .Define('EVT_sphericity_y',   "EVT_sphericity.at(1)")
                .Define('EVT_sphericity_z',   "EVT_sphericity.at(2)")
                .Define('EVT_sphericity_val', "EVT_sphericity.at(3)")
+
+
+#################--------------------------------------------------------------------------
 
 
 
