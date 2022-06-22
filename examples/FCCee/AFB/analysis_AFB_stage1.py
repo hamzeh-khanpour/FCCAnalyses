@@ -147,7 +147,7 @@ class RDFanalysis():
                .Define("RP_charge",     "ReconstructedParticle::get_charge(RecoParticles_wo_leptons)")
                .Define("RP_mass",       "ReconstructedParticle::get_mass(RecoParticles_wo_leptons)")
                
-                .Define("pseudo_jets",    "JetClusteringUtils::set_pseudoJets_xyzm(RP_px, RP_py, RP_pz, RP_mass)")
+               .Define("pseudo_jets",    "JetClusteringUtils::set_pseudoJets_xyzm(RP_px, RP_py, RP_pz, RP_mass)")
 
 
 
@@ -216,6 +216,7 @@ class RDFanalysis():
                .Define('EVT_thrust_y',   "EVT_thrust.at(1)")
                .Define('EVT_thrust_z',   "EVT_thrust.at(2)")
                .Define('EVT_thrust_val', "EVT_thrust.at(3)")
+               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
 
                .Define('EVT_sphericity',     'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
                .Define('EVT_sphericity_x',   "EVT_sphericity.at(0)")
@@ -239,13 +240,13 @@ class RDFanalysis():
     #Mandatory: output function, please make sure you return the branchlist as a python list
     def output():
         branchList = [
-                "leptons", "n_leptons", "lepton_e", "lepton_pt", "lepton_mass", "lepton_charge", "lepton_eta", "lepton_phi",  
-                "electrons", "electron_e", "electron_pt", "electron_mass", "electron_charge", "electron_eta", "electron_phi",               
-                "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi",
-                "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", "MC_pdg", "MC_charge", "MC_mass", "MC_status", "MC_vertex_x", "MC_vertex_y", "MC_vertex_z",
-                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
-                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
-                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
-                "RP_thrustangle", "RP_sphericityangle"
+#                "leptons", "n_leptons", "lepton_e", "lepton_pt", "lepton_mass", "lepton_charge", "lepton_eta", "lepton_phi",  
+#                "electrons", "electron_e", "electron_pt", "electron_mass", "electron_charge", "electron_eta", "electron_phi",               
+#                "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi",
+#                "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", "MC_pdg", "MC_charge", "MC_mass", "MC_status", "MC_vertex_x", "MC_vertex_y", "MC_vertex_z",
+#                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
+#                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
+#                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
+                "RP_thrustangle", "RP_sphericityangle", "EVT_thrust_costheta"
         ]
         return branchList
