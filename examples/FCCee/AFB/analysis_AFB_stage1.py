@@ -45,21 +45,11 @@ class RDFanalysis():
                .Define("electrons", "ReconstructedParticle::get(Electron0, ReconstructedParticles)")
                .Define("muons", "ReconstructedParticle::get(Muon0, ReconstructedParticles)")
 
-               .Define("n_electrons", "ReconstructedParticle::get_n(electrons)")
-               .Define("n_muons", "ReconstructedParticle::get_n(muons)")
 
-               .Define("leptons", "ReconstructedParticle::merge(electrons, muons)")
-               .Define("n_leptons", "ReconstructedParticle::get_n(leptons)")
-               .Define("lepton_e", "ReconstructedParticle::get_e(leptons)")
-               .Define("lepton_px", "ReconstructedParticle::get_px(leptons)")
-               .Define("lepton_py", "ReconstructedParticle::get_py(leptons)")
-               .Define("lepton_pz", "ReconstructedParticle::get_pz(leptons)")
-               .Define("lepton_pt", "ReconstructedParticle::get_pt(leptons)")
-               .Define("lepton_eta", "ReconstructedParticle::get_eta(leptons)")
-               .Define("lepton_phi", "ReconstructedParticle::get_phi(leptons)")
-               .Define("lepton_mass", "ReconstructedParticle::get_mass(leptons)")
-               .Define("lepton_charge", "ReconstructedParticle::get_charge(leptons)")               
-               
+
+
+               .Define("n_electrons", "ReconstructedParticle::get_n(electrons)")
+               .Define("electron_theta", "ReconstructedParticle::get_theta(electrons)")           
                .Define("electron_e", "ReconstructedParticle::get_e(electrons)")
                .Define("electron_px", "ReconstructedParticle::get_px(electrons)")
                .Define("electron_py", "ReconstructedParticle::get_py(electrons)")
@@ -70,6 +60,9 @@ class RDFanalysis():
                .Define("electron_mass", "ReconstructedParticle::get_mass(electrons)")
                .Define("electron_charge", "ReconstructedParticle::get_charge(electrons)")               
                
+
+               .Define("n_muons", "ReconstructedParticle::get_n(muons)")
+               .Define("muon_theta", "ReconstructedParticle::get_theta(muons)")
                .Define("muon_e", "ReconstructedParticle::get_e(muons)")
                .Define("muon_px", "ReconstructedParticle::get_px(muons)")
                .Define("muon_py", "ReconstructedParticle::get_py(muons)")
@@ -79,6 +72,23 @@ class RDFanalysis():
                .Define("muon_phi", "ReconstructedParticle::get_phi(muons)")
                .Define("muon_mass", "ReconstructedParticle::get_mass(muons)")
                .Define("muon_charge", "ReconstructedParticle::get_charge(muons)")               
+
+
+
+               .Define("leptons", "ReconstructedParticle::merge(electrons, muons)")
+               .Define("n_leptons", "ReconstructedParticle::get_n(leptons)")
+               .Define("lepton_theta", "ReconstructedParticle::get_theta(leptons)")
+               .Define("lepton_e", "ReconstructedParticle::get_e(leptons)")
+               .Define("lepton_px", "ReconstructedParticle::get_px(leptons)")
+               .Define("lepton_py", "ReconstructedParticle::get_py(leptons)")
+               .Define("lepton_pz", "ReconstructedParticle::get_pz(leptons)")
+               .Define("lepton_pt", "ReconstructedParticle::get_pt(leptons)")
+               .Define("lepton_eta", "ReconstructedParticle::get_eta(leptons)")
+               .Define("lepton_phi", "ReconstructedParticle::get_phi(leptons)")
+               .Define("lepton_mass", "ReconstructedParticle::get_mass(leptons)")
+               .Define("lepton_charge", "ReconstructedParticle::get_charge(leptons)") 
+
+
 
 #################--------------------------------------------------------------------------
 
@@ -141,7 +151,7 @@ class RDFanalysis():
     #Mandatory: output function, please make sure you return the branchlist as a python list
     def output():
         branchList = [
-                "leptons", "lepton_e", "lepton_pt", "lepton_mass", "lepton_charge", "lepton_eta", "lepton_phi",  
+                "leptons", "n_leptons", "lepton_e", "lepton_pt", "lepton_mass", "lepton_charge", "lepton_eta", "lepton_phi",  
                 "electrons", "electron_e", "electron_pt", "electron_mass", "electron_charge", "electron_eta", "electron_phi",               
                 "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi",
                 "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", "MC_pdg", "MC_charge", "MC_mass", "MC_status", "MC_vertex_x", "MC_vertex_y", "MC_vertex_z",
