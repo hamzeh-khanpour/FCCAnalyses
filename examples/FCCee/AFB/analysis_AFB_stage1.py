@@ -96,6 +96,7 @@ class RDFanalysis():
                .Alias("MCRecoAssociations1", "MCRecoAssociations#1.index")
 
                .Alias("Particle0", "Particle#0.index")
+               .Alias("Particle1", "Particle#1.index")
                
                .Define("MC_px",         "MCParticle::get_px(Particle)")
                .Define("MC_py",         "MCParticle::get_py(Particle)")
@@ -110,6 +111,17 @@ class RDFanalysis():
                .Define("MC_vertex_x",   "MCParticle::get_vertex_x(Particle)")
                .Define("MC_vertex_y",   "MCParticle::get_vertex_y(Particle)")
                .Define("MC_vertex_z",   "MCParticle::get_vertex_z(Particle)")
+#               .Define("MC_vertex_z",   "FCCAnalyses::MCParticle::get_vertex_z(Particle)")
+               
+               
+
+               .Define("MC_PDG", "FCCAnalyses::MCParticle::get_pdg(Particle)")
+               .Define("MC_n",   "int(MC_PDG.size())")
+               .Define("MC_M1",  "myUtils::get_MCMother1(Particle,Particle0)")
+               .Define("MC_M2",  "myUtils::get_MCMother2(Particle,Particle0)")
+               .Define("MC_D1",  "myUtils::get_MCDaughter1(Particle,Particle1)")
+               .Define("MC_D2",  "myUtils::get_MCDaughter2(Particle,Particle1)")
+
 
 
 #################--------------------------------------------------------------------------
@@ -131,7 +143,6 @@ class RDFanalysis():
                .Alias("Jet3","Jet#3.index") 
                .Define("JET_btag", "ReconstructedParticle::getJet_btag(Jet3, ParticleIDs, ParticleIDs_0)")
                .Define("EVT_nbtag", "ReconstructedParticle::getJet_ntags(JET_btag)")
-
 
 
 
@@ -200,7 +211,7 @@ class RDFanalysis():
 
                  #MET
                  #=====================================================
-                .Define("MET", "ReconstructedParticle::get_p(MissingET)") #absolute value of MET
+                .Define("MET",   "ReconstructedParticle::get_p(MissingET)") #absolute value of MET
 		        .Define("MET_x", "ReconstructedParticle::get_px(MissingET)") #x-component of MET
 		        .Define("MET_y", "ReconstructedParticle::get_py(MissingET)") #y-component of MET
                 .Define("MET_z", "ReconstructedParticle::get_pz(MissingET)") #z-component of MET
@@ -223,7 +234,7 @@ class RDFanalysis():
 #               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
                
 
-               .Define('EVT_sphericity',     'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
                .Define('EVT_sphericity_val',  'EVT_sphericity.at(0)')
                .Define('EVT_sphericity_x',    'EVT_sphericity.at(1)')
                .Define('EVT_sphericity_x_err','EVT_sphericity.at(2)')
