@@ -157,10 +157,10 @@ class RDFanalysis():
 
 
              #=================================================================================
-                    # re-clustering the jet, Generalised-kt for e+e- (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 2 jets
+                    # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 2 jets
              #===================================================================================
               
-               .Define("tw_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 1)(pseudo_jets)")  #get the jets out of the struct
+               .Define("tw_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
                .Define("tw_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(tw_FCCAnalysesJets_ee_genkt_ES)")    #get the jets constituents out of the struct
                .Define("tw_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(tw_FCCAnalysesJets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_e",        "JetClusteringUtils::get_e(tw_jets_ee_genkt_ES)")
@@ -175,10 +175,10 @@ class RDFanalysis():
                
                
                #====================================================================================================================
-                    # re-clustering the jet, Generalised-kt for e+e- (clustering_ee_genkt_E Scheme)-Exclusive jet selection up to 3 jets
+                    # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 3 jets
                #======================================================================================================================              
               
-               .Define("th_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 3, 3, 1, 0, 1)(pseudo_jets)")  #get the jets out of the struct
+               .Define("th_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 3, 3, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
                .Define("th_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(th_FCCAnalysesJets_ee_genkt_ES)")    #get the jets constituents out of the struct
                .Define("th_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(th_FCCAnalysesJets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_e",        "JetClusteringUtils::get_e(th_jets_ee_genkt_ES)")
