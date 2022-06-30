@@ -222,16 +222,24 @@ class RDFanalysis():
 
 
 
-               .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
-               .Define('EVT_thrust_val',  'EVT_thrust.at(0)')
-               .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
-               .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
-               .Define('EVT_thrust_y',    'EVT_thrust.at(3)')
-               .Define('EVT_thrust_y_err','EVT_thrust.at(4)')
-               .Define('EVT_thrust_z',    'EVT_thrust.at(5)')
-               .Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
+               ##.Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               ##.Define('EVT_thrust_val',  'EVT_thrust.at(0)')
+               ##.Define('EVT_thrust_x',    'EVT_thrust.at(1)')
+               ##.Define('EVT_thrust_x_err','EVT_thrust.at(2)')
+               ##.Define('EVT_thrust_y',    'EVT_thrust.at(3)')
+               ##.Define('EVT_thrust_y_err','EVT_thrust.at(4)')
+               ##.Define('EVT_thrust_z',    'EVT_thrust.at(5)')
+               ##.Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
                
 #               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
+
+
+
+               .Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px, RP_py, RP_pz)')
+               .Define("EVT_thrust",           'Algorithms::getThrustPointing(RP_thrustangleNP, RP_e, EVT_thrustNP, 1.)')
+               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
+
                
 
                .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
@@ -268,6 +276,6 @@ class RDFanalysis():
 #                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
 #                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
 #                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
-                "RP_thrustangle", "RP_sphericityangle"   # , "EVT_thrust_costheta"
+                "RP_thrustangle", "RP_sphericityangle", "EVT_thrust_costheta"
         ]
         return branchList
