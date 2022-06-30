@@ -2,7 +2,7 @@
 
 #Mandatory: List of processes
 processList = {
-    'p8_ee_Zbb_ecm91':{'fraction':0.01},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
+    'p8_ee_Zbb_ecm91':{'fraction':0.00001},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
 #    'p8_ee_WW_ecm240':{'fraction':0.5, 'chunks':2}, #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
 #    'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
 }
@@ -158,7 +158,7 @@ class RDFanalysis():
                .Define("RP_charge",     "ReconstructedParticle::get_charge(RecoParticles_wo_leptons)")
                .Define("RP_mass",       "ReconstructedParticle::get_mass(RecoParticles_wo_leptons)")
                
-               .Define("pseudo_jets",    "JetClusteringUtils::set_pseudoJets_xyzm(RP_px, RP_py, RP_pz, RP_mass)")
+               .Define("pseudo_jets",   "JetClusteringUtils::set_pseudoJets_xyzm(RP_px, RP_py, RP_pz, RP_mass)")
 
 
 
@@ -171,16 +171,16 @@ class RDFanalysis():
                     # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 2 jets
              #===================================================================================
               
-               .Define("tw_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
+               .Define("tw_FCCAnalysesJets_ee_genkt_ES","JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
                .Define("tw_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(tw_FCCAnalysesJets_ee_genkt_ES)")    #get the jets constituents out of the struct
                .Define("tw_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(tw_FCCAnalysesJets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_e",        "JetClusteringUtils::get_e(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_e",         "JetClusteringUtils::get_e(tw_jets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(tw_jets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(tw_jets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(tw_jets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_theta",        "JetClusteringUtils::get_theta(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(tw_jets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(tw_jets_ee_genkt_ES, Particle)")
-               .Define("tw_jets_ee_genkt_ES_btag_true",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 1.0)")
+               .Define("tw_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 1.0)")
                .Define("tw_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 0.80)")
                .Define("tw_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(tw_jets_ee_genkt_ES_flavour, 0.10)")
                
@@ -189,16 +189,16 @@ class RDFanalysis():
                     # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 3 jets
                #======================================================================================================================              
               
-               .Define("th_FCCAnalysesJets_ee_genkt_ES", "JetClustering::clustering_ee_genkt(0.5, 3, 3, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
+               .Define("th_FCCAnalysesJets_ee_genkt_ES","JetClustering::clustering_ee_genkt(0.5, 3, 3, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
                .Define("th_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(th_FCCAnalysesJets_ee_genkt_ES)")    #get the jets constituents out of the struct
                .Define("th_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(th_FCCAnalysesJets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_e",        "JetClusteringUtils::get_e(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_e",         "JetClusteringUtils::get_e(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(th_jets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_theta",        "JetClusteringUtils::get_theta(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(th_jets_ee_genkt_ES, Particle)")
-               .Define("th_jets_ee_genkt_ES_btag_true",      "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 1.0)")
+               .Define("th_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 1.0)")
                .Define("th_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 0.80)")
                .Define("th_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(th_jets_ee_genkt_ES_flavour, 0.10)")
               
@@ -222,24 +222,24 @@ class RDFanalysis():
 
 
 
-               ##.Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
-               ##.Define('EVT_thrust_val',  'EVT_thrust.at(0)')
-               ##.Define('EVT_thrust_x',    'EVT_thrust.at(1)')
-               ##.Define('EVT_thrust_x_err','EVT_thrust.at(2)')
-               ##.Define('EVT_thrust_y',    'EVT_thrust.at(3)')
-               ##.Define('EVT_thrust_y_err','EVT_thrust.at(4)')
-               ##.Define('EVT_thrust_z',    'EVT_thrust.at(5)')
-               ##.Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
+               .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_thrust_val',  'EVT_thrust.at(0)')
+               .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
+               .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
+               .Define('EVT_thrust_y',    'EVT_thrust.at(3)')
+               .Define('EVT_thrust_y_err','EVT_thrust.at(4)')
+               .Define('EVT_thrust_z',    'EVT_thrust.at(5)')
+               .Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
                
 #               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
 
 
 
-               .Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
-               .Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px, RP_py, RP_pz)')
-               .Define("EVT_thrust",           'Algorithms::getThrustPointing(RP_thrustangleNP, RP_e, EVT_thrustNP, 1.)')
-               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
+               #.Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               #.Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px, RP_py, RP_pz)')
+               #.Define("EVT_thrust",           'Algorithms::getThrustPointing(1)(RP_thrustangleNP, RP_e, EVT_thrustNP)')
 
+               #.Define('EVT_thrust_costheta',  'EVT_thrust.at(1)')
                
 
                .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
@@ -276,6 +276,6 @@ class RDFanalysis():
 #                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
 #                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
 #                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
-                "RP_thrustangle", "RP_sphericityangle", "EVT_thrust_costheta"
+                "RP_thrustangle", "RP_sphericityangle"  # , "EVT_thrust_costheta"
         ]
         return branchList
