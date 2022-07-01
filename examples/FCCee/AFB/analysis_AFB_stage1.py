@@ -222,7 +222,13 @@ class RDFanalysis():
 
 
 
-               .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define("RP_px_all_objects",         "ReconstructedParticle::get_px(ReconstructedParticles)")
+               .Define("RP_py_all_objects",         "ReconstructedParticle::get_py(ReconstructedParticles)")
+               .Define("RP_pz_all_objects",         "ReconstructedParticle::get_pz(ReconstructedParticles)")
+               .Define("RP_e_all_objects",          "ReconstructedParticle::get_e(ReconstructedParticles)")
+
+
+               .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
                .Define('EVT_thrust_val',  'EVT_thrust.at(0)')
                .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
                .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
@@ -235,14 +241,14 @@ class RDFanalysis():
 
 
 
-               #.Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
-               #.Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px, RP_py, RP_pz)')
-               #.Define("EVT_thrust",           'Algorithms::getThrustPointing(1)(RP_thrustangleNP, RP_e, EVT_thrustNP)')
+               #.Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
+               #.Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
+               #.Define("EVT_thrust",           'Algorithms::getThrustPointing(1)(RP_thrustangleNP, RP_e_all_objects, EVT_thrustNP)')
 
                #.Define('EVT_thrust_costheta',  'EVT_thrust.at(1)')
                
 
-               .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px, RP_py, RP_pz)')
+               .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
                .Define('EVT_sphericity_val',  'EVT_sphericity.at(0)')
                .Define('EVT_sphericity_x',    'EVT_sphericity.at(1)')
                .Define('EVT_sphericity_x_err','EVT_sphericity.at(2)')
@@ -252,8 +258,8 @@ class RDFanalysis():
                .Define('EVT_sphericity_z_err','EVT_sphericity.at(6)')
                
 
-               .Define('RP_thrustangle', 'Algorithms::getAxisCosTheta(EVT_thrust, RP_px, RP_py, RP_pz)')
-               .Define('RP_sphericityangle', 'Algorithms::getAxisCosTheta(EVT_sphericity, RP_px, RP_py, RP_pz)') 
+               .Define('RP_thrustangle', 'Algorithms::getAxisCosTheta(EVT_thrust, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
+               .Define('RP_sphericityangle', 'Algorithms::getAxisCosTheta(EVT_sphericity, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)') 
                
 
 
