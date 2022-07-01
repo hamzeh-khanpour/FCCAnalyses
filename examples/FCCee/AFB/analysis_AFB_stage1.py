@@ -282,6 +282,18 @@ class RDFanalysis():
 #                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
 #                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
 #                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
-                "RP_thrustangle", "RP_sphericityangle"  # , "EVT_thrust_costheta"
+                "tw_jetconstituents_ee_genkt_ES", 
+                "tw_jets_ee_genkt_ES_e",
+                "tw_jets_ee_genkt_ES_px",
+                "tw_jets_ee_genkt_ES_py",
+                "tw_jets_ee_genkt_ES_pz",
+                "tw_jets_ee_genkt_ES_theta",
+                "tw_jets_ee_genkt_ES_flavour",
+                "tw_jets_ee_genkt_ES_btag",
+                "tw_jets_ee_genkt_ES_btag_true",
+                "tw_jets_ee_genkt_ES_ctag",
+                "RP_thrustangle", 
+                "RP_sphericityangle"  
+#               "EVT_thrust_costheta"
         ]
         return branchList
