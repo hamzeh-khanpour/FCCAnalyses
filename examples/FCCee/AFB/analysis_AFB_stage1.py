@@ -2,7 +2,7 @@
 
 #Mandatory: List of processes
 processList = {
-    'p8_ee_Zbb_ecm91':{'fraction':0.00001},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
+    'p8_ee_Zbb_ecm91':{'fraction':0.001},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
 #    'p8_ee_WW_ecm240':{'fraction':0.5, 'chunks':2}, #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
 #    'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
 }
@@ -17,7 +17,7 @@ outputDir   = "outputs/FCCee/AFB/stage1"
 #analysisName = "My Analysis"
 
 #Optional: ncpus, default is 4
-nCPUS       = 50
+nCPUS       = 8
 
 #Optional running on HTCondor, default is False
 #runBatch    = False
@@ -128,15 +128,15 @@ class RDFanalysis():
 
 
 
-                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)") #select only jets with a pT > 0 GeV  
-                .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)") #count how many jets are in the event in total
-                .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)") #transverse momentum pT
-		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)") #pseudorapidity eta
-                .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)") # Energy of jet
-                .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)") # create branch with jet px
-                .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)") # create branch with jet py
-                .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)") # create branch with jet pz 
-                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)") # create branch with jet eta
+                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")          # select only jets with a pT > 0 GeV  
+                .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)")     # count how many jets are in the event in total
+                .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)")     # momentum p
+		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)") # theta
+                .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)")        # Energy of jet
+                .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)")       # create branch with jet px
+                .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)")       # create branch with jet py
+                .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)")       # create branch with jet pz 
+                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)")      # create branch with jet eta
                 
  
 
