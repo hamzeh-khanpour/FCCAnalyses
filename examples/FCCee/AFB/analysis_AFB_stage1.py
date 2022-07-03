@@ -179,6 +179,7 @@ class RDFanalysis():
                .Define("tw_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(tw_jets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(tw_jets_ee_genkt_ES)")
                .Define("tw_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(tw_jets_ee_genkt_ES)")
+               .Define("tw_jets_ee_genkt_ES_charge",    "JetClusteringUtils::get_charge(tw_jets_ee_genkt_ES)")               
                .Define("tw_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(tw_jets_ee_genkt_ES, Particle)")
                .Define("tw_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 1.0)")
                .Define("tw_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 0.80)")
@@ -197,6 +198,7 @@ class RDFanalysis():
                .Define("th_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(th_jets_ee_genkt_ES)")
+               .Define("th_jets_ee_genkt_ES_charge",    "JetClusteringUtils::get_charge(th_jets_ee_genkt_ES)")
                .Define("th_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(th_jets_ee_genkt_ES, Particle)")
                .Define("th_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 1.0)")
                .Define("th_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 0.80)")
@@ -288,6 +290,7 @@ class RDFanalysis():
                 "tw_jets_ee_genkt_ES_py",
                 "tw_jets_ee_genkt_ES_pz",
                 "tw_jets_ee_genkt_ES_theta",
+                "tw_jets_ee_genkt_ES_charge",                
                 "tw_jets_ee_genkt_ES_flavour",
                 "tw_jets_ee_genkt_ES_btag",
                 "tw_jets_ee_genkt_ES_btag_true",
