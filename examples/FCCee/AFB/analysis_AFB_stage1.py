@@ -21,6 +21,7 @@ nCPUS       = 8
 
 #Optional running on HTCondor, default is False
 #runBatch    = False
+runBatch    = True
 
 #Optional batch queue name when running on HTCondor, default is workday
 #batchQueue = "longlunch"
