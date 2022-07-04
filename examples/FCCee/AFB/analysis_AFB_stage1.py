@@ -183,8 +183,10 @@ class RDFanalysis():
                .Define("tw_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(tw_jets_ee_genkt_ES, Particle)")
                .Define("tw_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 1.0)")
                .Define("tw_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 0.80)")
-               .Define("tw_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(tw_jets_ee_genkt_ES_flavour, 0.10)")
+               .Define("tw_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(tw_jets_ee_genkt_ES_flavour, 0.10)") 
                
+               
+
                
                #====================================================================================================================
                     # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 3 jets
@@ -277,26 +279,24 @@ class RDFanalysis():
     #Mandatory: output function, please make sure you return the branchlist as a python list
     def output():
         branchList = [
-#                "leptons", "n_leptons", "lepton_e", "lepton_pt", "lepton_mass", "lepton_charge", "lepton_eta", "lepton_phi",  
-#                "electrons", "electron_e", "electron_pt", "electron_mass", "electron_charge", "electron_eta", "electron_phi",               
-#                "muons", "muon_e", "muon_pt", "muon_mass", "muon_charge", "muon_eta", "muon_phi",
-#                "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", "MC_pdg", "MC_charge", "MC_mass", "MC_status", "MC_vertex_x", "MC_vertex_y", "MC_vertex_z",
-#                "RP_px", "RP_py", "RP_pz", "RP_p", "RP_e", "RP_charge", "RP_mass", 
-#                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
-#                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val",
+                "leptons", "n_leptons", "lepton_theta", "lepton_e", "lepton_px", 
+                "lepton_py", "lepton_pz", "lepton_pt", "lepton_eta", "lepton_phi",
+                "lepton_mass", "lepton_charge",
                 "tw_jetconstituents_ee_genkt_ES", 
                 "tw_jets_ee_genkt_ES_e",
                 "tw_jets_ee_genkt_ES_px",
                 "tw_jets_ee_genkt_ES_py",
                 "tw_jets_ee_genkt_ES_pz",
                 "tw_jets_ee_genkt_ES_theta",
-                "tw_jets_ee_genkt_ES_charge",                
+                "tw_jets_ee_genkt_ES_charge",
                 "tw_jets_ee_genkt_ES_flavour",
                 "tw_jets_ee_genkt_ES_btag",
                 "tw_jets_ee_genkt_ES_btag_true",
                 "tw_jets_ee_genkt_ES_ctag",
                 "RP_thrustangle", 
-                "RP_sphericityangle"  
+                "RP_sphericityangle",
+                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
+                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val"
 #               "EVT_thrust_costheta"
         ]
         return branchList
