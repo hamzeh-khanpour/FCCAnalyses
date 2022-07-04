@@ -240,17 +240,14 @@ class RDFanalysis():
                .Define('EVT_thrust_z',    'EVT_thrust.at(5)')
                .Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
                
-#               .Define('EVT_thrust_costheta',  'EVT_thrust.at(7)')
-
 
 
                #.Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
                #.Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
                #.Define("EVT_thrust",           'Algorithms::getThrustPointing(1)(RP_thrustangleNP, RP_e_all_objects, EVT_thrustNP)')
 
-               #.Define('EVT_thrust_costheta',  'EVT_thrust.at(1)')
-               
 
+               
                .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
                .Define('EVT_sphericity_val',  'EVT_sphericity.at(0)')
                .Define('EVT_sphericity_x',    'EVT_sphericity.at(1)')
