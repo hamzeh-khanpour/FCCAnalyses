@@ -130,17 +130,18 @@ class RDFanalysis():
 
 
 
-                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")          # select only jets with a pT > 0 GeV  
-                .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)")     # count how many jets are in the event in total
-                .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)")     # momentum p
-		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)") # theta
-                .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)")        # Energy of jet
-                .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)")       # create branch with jet px
-                .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)")       # create branch with jet py
-                .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)")       # create branch with jet pz 
-                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)")      # create branch with jet eta
+                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")           # select only jets with a pT > 0 GeV  
+                .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)")      # count how many jets are in the event in total
+                .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)")      # momentum p
+		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)")  # theta
+		        .Define("seljet_charge", "ReconstructedParticle::get_charge(selected_jets)") # charge
+                .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)")         # Energy of jet
+                .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)")        # create branch with jet px
+                .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)")        # create branch with jet py
+                .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)")        # create branch with jet pz 
+                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)")       # create branch with jet eta
                 
- 
+   
 
                .Alias("Jet3","Jet#3.index") 
                .Define("JET_btag", "ReconstructedParticle::getJet_btag(Jet3, ParticleIDs, ParticleIDs_0)")
@@ -273,9 +274,11 @@ class RDFanalysis():
     #Mandatory: output function, please make sure you return the branchlist as a python list
     def output():
         branchList = [
-                "leptons", "n_leptons", "lepton_theta", "lepton_e", "lepton_px", 
+                "n_leptons", "lepton_theta", "lepton_e", "lepton_px", 
                 "lepton_py", "lepton_pz", "lepton_pt", "lepton_eta", "lepton_phi",
                 "lepton_mass", "lepton_charge",
+                "n_jets", "seljet_p", "seljet_theta", "seljet_charge", "seljet_e", 
+                "seljet_px", "seljet_py", "seljet_pz", "seljet_eta",  
                 "tw_jetconstituents_ee_genkt_ES", 
                 "tw_jets_ee_genkt_ES_e",
                 "tw_jets_ee_genkt_ES_px",
