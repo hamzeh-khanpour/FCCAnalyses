@@ -2,7 +2,7 @@
 
 #Mandatory: List of processes
 processList = {
-    'p8_ee_Zbb_ecm91':{'fraction':0.001},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
+    'p8_ee_Zbb_ecm91':{'fraction':0.01},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
 #    'p8_ee_WW_ecm240':{'fraction':0.5, 'chunks':2}, #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
 #    'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
 }
@@ -133,15 +133,16 @@ class RDFanalysis():
                 .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")           # select only jets with a pT > 0 GeV  
                 .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)")      # count how many jets are in the event in total
                 .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)")      # momentum p
+                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)")       # create branch with jet eta
 		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)")  # theta
 		        .Define("seljet_charge", "ReconstructedParticle::get_charge(selected_jets)") # charge
                 .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)")         # Energy of jet
                 .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)")        # create branch with jet px
                 .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)")        # create branch with jet py
                 .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)")        # create branch with jet pz 
-                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)")       # create branch with jet eta
-                
-   
+
+
+
 
                .Alias("Jet3","Jet#3.index") 
                .Define("JET_btag", "ReconstructedParticle::getJet_btag(Jet3, ParticleIDs, ParticleIDs_0)")
@@ -174,38 +175,36 @@ class RDFanalysis():
                     # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 2 jets
              #===================================================================================
               
-               .Define("tw_FCCAnalysesJets_ee_genkt_ES","JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
-               .Define("tw_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(tw_FCCAnalysesJets_ee_genkt_ES)")   #get the jets constituents out of the struct
-               .Define("tw_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(tw_FCCAnalysesJets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_e",         "JetClusteringUtils::get_e(tw_jets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(tw_jets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(tw_jets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(tw_jets_ee_genkt_ES)")
-               .Define("tw_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(tw_jets_ee_genkt_ES)")            
-               .Define("tw_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(tw_jets_ee_genkt_ES, Particle)")
-               .Define("tw_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 1.0)")
-               .Define("tw_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(tw_jets_ee_genkt_ES_flavour, 0.80)")
-               .Define("tw_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(tw_jets_ee_genkt_ES_flavour, 0.10)") 
-               
+               .Define("cambridge_FCCAnalysesJets_ee_genkt_ES","JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 0)(pseudo_jets)")         #get the jets out of the struct
+               .Define("cambridge_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(cambridge_FCCAnalysesJets_ee_genkt_ES)")   #get the jets constituents out of the struct
+               .Define("cambridge_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(cambridge_FCCAnalysesJets_ee_genkt_ES)")
+               .Define("cambridge_jets_ee_genkt_ES_e",         "JetClusteringUtils::get_e(cambridge_jets_ee_genkt_ES)")
+               .Define("cambridge_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(cambridge_jets_ee_genkt_ES)")
+               .Define("cambridge_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(cambridge_jets_ee_genkt_ES)")
+               .Define("cambridge_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(cambridge_jets_ee_genkt_ES)")
+               .Define("cambridge_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(cambridge_jets_ee_genkt_ES)")            
+               .Define("cambridge_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(cambridge_jets_ee_genkt_ES, Particle)")
+               .Define("cambridge_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(cambridge_jets_ee_genkt_ES_flavour, 1.0)")
+               .Define("cambridge_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(cambridge_jets_ee_genkt_ES_flavour, 0.80)")
+               .Define("cambridge_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(cambridge_jets_ee_genkt_ES_flavour, 0.10)") 
                
 
-               
                #====================================================================================================================
-                    # re-clustering the jet, Generalised-kt for e+e- cambridge (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 3 jets
+                    # re-clustering the jet, jade (clustering_jade_E Scheme)-Exclusive jet selection exactly 2 jets
                #======================================================================================================================              
               
-               .Define("th_FCCAnalysesJets_ee_genkt_ES","JetClustering::clustering_ee_genkt(0.5, 3, 3, 1, 0, 0)(pseudo_jets)")  #get the jets out of the struct
-               .Define("th_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(th_FCCAnalysesJets_ee_genkt_ES)")   #get the jets constituents out of the struct
-               .Define("th_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(th_FCCAnalysesJets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_e",         "JetClusteringUtils::get_e(th_jets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(th_jets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(th_jets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(th_jets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(th_jets_ee_genkt_ES)")
-               .Define("th_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(th_jets_ee_genkt_ES, Particle)")
-               .Define("th_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 1.0)")
-               .Define("th_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(th_jets_ee_genkt_ES_flavour, 0.80)")
-               .Define("th_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(th_jets_ee_genkt_ES_flavour, 0.10)")
+               .Define("jade_FCCAnalysesJets_ee_ES","JetClustering::clustering_jade(0.5, 2, 2, 1, 0)(pseudo_jets)")     #get the jets out of the struct
+               .Define("jade_jets_ee_ES",           "JetClusteringUtils::get_pseudoJets(jade_FCCAnalysesJets_ee_ES)")   #get the jets constituents out of the struct
+               .Define("jade_jetconstituents_ee_ES","JetClusteringUtils::get_constituents(jade_FCCAnalysesJets_ee_ES)")
+               .Define("jade_jets_ee_ES_e",         "JetClusteringUtils::get_e(jade_jets_ee_ES)")
+               .Define("jade_jets_ee_ES_px",        "JetClusteringUtils::get_px(jade_jets_ee_ES)")
+               .Define("jade_jets_ee_ES_py",        "JetClusteringUtils::get_py(jade_jets_ee_ES)")
+               .Define("jade_jets_ee_ES_pz",        "JetClusteringUtils::get_pz(jade_jets_ee_ES)")
+               .Define("jade_jets_ee_ES_theta",     "JetClusteringUtils::get_theta(jade_jets_ee_ES)")
+               .Define("jade_jets_ee_ES_flavour",   "JetTaggingUtils::get_flavour(jade_jets_ee_ES, Particle)")
+               .Define("jade_jets_ee_ES_btag_true", "JetTaggingUtils::get_btag(jade_jets_ee_ES_flavour, 1.0)")
+               .Define("jade_jets_ee_ES_btag",      "JetTaggingUtils::get_btag(jade_jets_ee_ES_flavour, 0.80)")
+               .Define("jade_jets_ee_ES_ctag",      "JetTaggingUtils::get_ctag(jade_jets_ee_ES_flavour, 0.10)")
               
 
 
@@ -277,18 +276,28 @@ class RDFanalysis():
                 "n_leptons", "lepton_theta", "lepton_e", "lepton_px", 
                 "lepton_py", "lepton_pz", "lepton_pt", "lepton_eta", "lepton_phi",
                 "lepton_mass", "lepton_charge",
-                "n_jets", "seljet_p", "seljet_theta", "seljet_charge", "seljet_e", 
-                "seljet_px", "seljet_py", "seljet_pz", "seljet_eta",  
-                "tw_jetconstituents_ee_genkt_ES", 
-                "tw_jets_ee_genkt_ES_e",
-                "tw_jets_ee_genkt_ES_px",
-                "tw_jets_ee_genkt_ES_py",
-                "tw_jets_ee_genkt_ES_pz",
-                "tw_jets_ee_genkt_ES_theta",
-                "tw_jets_ee_genkt_ES_flavour",
-                "tw_jets_ee_genkt_ES_btag",
-                "tw_jets_ee_genkt_ES_btag_true",
-                "tw_jets_ee_genkt_ES_ctag",
+                "n_jets", "seljet_eta", "seljet_p", "seljet_theta", "seljet_charge", "seljet_e", 
+                "seljet_px", "seljet_py", "seljet_pz",  
+                "cambridge_jetconstituents_ee_genkt_ES", 
+                "cambridge_jets_ee_genkt_ES_e",
+                "cambridge_jets_ee_genkt_ES_px",
+                "cambridge_jets_ee_genkt_ES_py",
+                "cambridge_jets_ee_genkt_ES_pz",
+                "cambridge_jets_ee_genkt_ES_theta",
+                "cambridge_jets_ee_genkt_ES_flavour",
+                "cambridge_jets_ee_genkt_ES_btag",
+                "cambridge_jets_ee_genkt_ES_btag_true",
+                "cambridge_jets_ee_genkt_ES_ctag",
+                "jade_jetconstituents_ee_ES", 
+                "jade_jets_ee_ES_e",
+                "jade_jets_ee_ES_px",
+                "jade_jets_ee_ES_py",
+                "jade_jets_ee_ES_pz",
+                "jade_jets_ee_ES_theta",
+                "jade_jets_ee_ES_flavour",
+                "jade_jets_ee_ES_btag",
+                "jade_jets_ee_ES_btag_true",
+                "jade_jets_ee_ES_ctag",
                 "RP_thrustangle", 
                 "RP_sphericityangle",
                 "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
