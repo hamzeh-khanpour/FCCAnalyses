@@ -130,7 +130,7 @@ class RDFanalysis():
 
 
 
-                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")           # select only jets with a pT > 0 GeV  
+                .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")           # select only jets with a pT > 0 GeV   
                 .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)")      # count how many jets are in the event in total
                 .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)")      # momentum p
                 .Define("seljet_eta",    "ReconstructedParticle::get_eta(selected_jets)")    # create branch with jet eta
@@ -235,7 +235,7 @@ class RDFanalysis():
                .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
                .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
                .Define('EVT_thrust_y',    'EVT_thrust.at(3)')
-               .Define('EVT_thrust_y_err','EVT_thrust.at(4)')
+               .Define('EVT_thrust_y_err','EVT_thrust.at(4)')  
                .Define('EVT_thrust_z',    'EVT_thrust.at(5)')
                .Define('EVT_thrust_z_err','EVT_thrust.at(6)')              
                
