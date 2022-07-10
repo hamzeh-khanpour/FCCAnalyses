@@ -133,13 +133,13 @@ class RDFanalysis():
                 .Define("selected_jets", "ReconstructedParticle::sel_p(0.0)(Jet)")           # select only jets with a pT > 0 GeV  
                 .Define("n_jets",        "ReconstructedParticle::get_n(selected_jets)")      # count how many jets are in the event in total
                 .Define("seljet_p",      "ReconstructedParticle::get_p(selected_jets)")      # momentum p
-                .Define("seljet_eta", "ReconstructedParticle::get_eta(selected_jets)")       # create branch with jet eta
+                .Define("seljet_eta",    "ReconstructedParticle::get_eta(selected_jets)")    # create branch with jet eta
 		        .Define("seljet_theta",  "ReconstructedParticle::get_theta(selected_jets)")  # theta
 		        .Define("seljet_charge", "ReconstructedParticle::get_charge(selected_jets)") # charge
-                .Define("seljet_e",   "ReconstructedParticle::get_e(selected_jets)")         # Energy of jet
-                .Define("seljet_px",  "ReconstructedParticle::get_px(selected_jets)")        # create branch with jet px
-                .Define("seljet_py",  "ReconstructedParticle::get_py(selected_jets)")        # create branch with jet py
-                .Define("seljet_pz",  "ReconstructedParticle::get_pz(selected_jets)")        # create branch with jet pz 
+                .Define("seljet_e",      "ReconstructedParticle::get_e(selected_jets)")      # Energy of jet
+                .Define("seljet_px",     "ReconstructedParticle::get_px(selected_jets)")     # create branch with jet px
+                .Define("seljet_py",     "ReconstructedParticle::get_py(selected_jets)")     # create branch with jet py
+                .Define("seljet_pz",     "ReconstructedParticle::get_pz(selected_jets)")     # create branch with jet pz 
 
 
 
@@ -206,8 +206,6 @@ class RDFanalysis():
                .Define("jade_jets_ee_ES_btag",      "JetTaggingUtils::get_btag(jade_jets_ee_ES_flavour, 0.80)")
                .Define("jade_jets_ee_ES_ctag",      "JetTaggingUtils::get_ctag(jade_jets_ee_ES_flavour, 0.10)")
               
-
-
 
 #################--------------------------------------------------------------------------
 
