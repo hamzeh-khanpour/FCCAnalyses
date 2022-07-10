@@ -231,7 +231,7 @@ class RDFanalysis():
 
 
                .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
-               .Define('EVT_thrust_val',  'EVT_thrust.at(0)')
+               .Define('EVT_thrust_Mag',  'EVT_thrust.at(0)')
                .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
                .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
                .Define('EVT_thrust_y',    'EVT_thrust.at(3)')
@@ -248,7 +248,7 @@ class RDFanalysis():
 
                
                .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
-               .Define('EVT_sphericity_val',  'EVT_sphericity.at(0)')
+               .Define('EVT_sphericity_Mag',  'EVT_sphericity.at(0)')
                .Define('EVT_sphericity_x',    'EVT_sphericity.at(1)')
                .Define('EVT_sphericity_x_err','EVT_sphericity.at(2)')
                .Define('EVT_sphericity_y',    'EVT_sphericity.at(3)')
@@ -298,8 +298,8 @@ class RDFanalysis():
                 "jade_jets_ee_ES_ctag",
                 "RP_thrustangle", 
                 "RP_sphericityangle",
-                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_val",
-                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_val"
+                "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_Mag",
+                "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_Mag"
 #               "EVT_thrust_costheta"
         ]
         return branchList
