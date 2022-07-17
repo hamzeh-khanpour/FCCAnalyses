@@ -144,7 +144,6 @@ class RDFanalysis():
 
 
 
-
                .Alias("Jet3","Jet#3.index") 
                .Define("JET_btag", "ReconstructedParticle::getJet_btag(Jet3, ParticleIDs, ParticleIDs_0)")
                .Define("EVT_nbtag", "ReconstructedParticle::getJet_ntags(JET_btag)")
@@ -209,7 +208,6 @@ class RDFanalysis():
                .Define("kt_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(kt_jets_ee_genkt_ES_flavour, 0.80)")
                .Define("kt_jets_ee_genkt_ES_ctag_true", "JetTaggingUtils::get_ctag(kt_jets_ee_genkt_ES_flavour, 1.0)") 
                .Define("kt_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(kt_jets_ee_genkt_ES_flavour, 0.10)") 
-               
                
                
 
