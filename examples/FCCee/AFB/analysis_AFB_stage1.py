@@ -100,12 +100,13 @@ class RDFanalysis():
                .Alias("Particle0", "Particle#0.index")
                .Alias("Particle1", "Particle#1.index")
                
+               .Define("MC_pdg",        "MCParticle::get_pdg(Particle)")
+               .Define("MC_size",       "int(MC_pdg.size())")
                .Define("MC_px",         "MCParticle::get_px(Particle)")
                .Define("MC_py",         "MCParticle::get_py(Particle)")
                .Define("MC_pz",         "MCParticle::get_pz(Particle)")
                .Define("MC_p",          "MCParticle::get_p(Particle)")
                .Define("MC_e",          "MCParticle::get_e(Particle)")
-               .Define("MC_pdg",        "MCParticle::get_pdg(Particle)")
                .Define("MC_theta",      "MCParticle::get_theta(Particle)")
                .Define("MC_charge",     "MCParticle::get_charge(Particle)")               
                .Define("MC_mass",       "MCParticle::get_mass(Particle)")
@@ -115,7 +116,7 @@ class RDFanalysis():
                .Define("MC_vertex_z",   "MCParticle::get_vertex_z(Particle)")
 #               .Define("MC_vertex_z",   "FCCAnalyses::MCParticle::get_vertex_z(Particle)")
                
-               
+  
 
                .Define("MC_PDG", "FCCAnalyses::MCParticle::get_pdg(Particle)")
                .Define("MC_n",   "int(MC_PDG.size())")
@@ -271,6 +272,9 @@ class RDFanalysis():
     #Mandatory: output function, please make sure you return the branchlist as a python list
     def output():
         branchList = [
+                "MC_pdg", "MC_size", "MC_px", "MC_py", "MC_pz", "MC_p", "MC_e", 
+                "MC_theta", "MC_charge", "MC_mass", "MC_status", 
+                "MC_PDG", "MC_n", "MC_M1", "MC_M2", "MC_D1", "MC_D2",
                 "n_leptons", "lepton_theta", "lepton_e", "lepton_px", 
                 "lepton_py", "lepton_pz", "lepton_pt", "lepton_eta", "lepton_phi",
                 "lepton_mass", "lepton_charge",
@@ -300,6 +304,5 @@ class RDFanalysis():
                 "RP_sphericityangle",
                 "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_Mag",
                 "EVT_sphericity_x", "EVT_sphericity_y", "EVT_sphericity_z", "EVT_sphericity_Mag"
-#               "EVT_thrust_costheta"
         ]
         return branchList
