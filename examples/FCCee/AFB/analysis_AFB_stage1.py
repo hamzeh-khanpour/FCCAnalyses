@@ -187,7 +187,30 @@ class RDFanalysis():
                .Define("cambridge_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(cambridge_jets_ee_genkt_ES, Particle)")
                .Define("cambridge_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(cambridge_jets_ee_genkt_ES_flavour, 1.0)")
                .Define("cambridge_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(cambridge_jets_ee_genkt_ES_flavour, 0.80)")
+               .Define("cambridge_jets_ee_genkt_ES_ctag_true", "JetTaggingUtils::get_ctag(cambridge_jets_ee_genkt_ES_flavour, 1.0)") 
                .Define("cambridge_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(cambridge_jets_ee_genkt_ES_flavour, 0.10)") 
+               
+ 
+ 
+              #=================================================================================
+                    # re-clustering the jet, Generalised-kt for e+e- kt (clustering_ee_genkt_E Scheme)-Exclusive jet selection exactly 2 jets
+             #===================================================================================
+              
+               .Define("kt_FCCAnalysesJets_ee_genkt_ES","JetClustering::clustering_ee_genkt(0.5, 2, 2, 1, 0, 1)(pseudo_jets)")         #get the jets out of the struct
+               .Define("kt_jets_ee_genkt_ES",           "JetClusteringUtils::get_pseudoJets(kt_FCCAnalysesJets_ee_genkt_ES)")          #get the jets constituents out of the struct
+               .Define("kt_jetconstituents_ee_genkt_ES","JetClusteringUtils::get_constituents(kt_FCCAnalysesJets_ee_genkt_ES)")
+               .Define("kt_jets_ee_genkt_ES_e",         "JetClusteringUtils::get_e(kt_jets_ee_genkt_ES)")
+               .Define("kt_jets_ee_genkt_ES_px",        "JetClusteringUtils::get_px(kt_jets_ee_genkt_ES)")
+               .Define("kt_jets_ee_genkt_ES_py",        "JetClusteringUtils::get_py(kt_jets_ee_genkt_ES)")
+               .Define("kt_jets_ee_genkt_ES_pz",        "JetClusteringUtils::get_pz(kt_jets_ee_genkt_ES)")
+               .Define("kt_jets_ee_genkt_ES_theta",     "JetClusteringUtils::get_theta(kt_jets_ee_genkt_ES)")            
+               .Define("kt_jets_ee_genkt_ES_flavour",   "JetTaggingUtils::get_flavour(kt_jets_ee_genkt_ES, Particle)")
+               .Define("kt_jets_ee_genkt_ES_btag_true", "JetTaggingUtils::get_btag(kt_jets_ee_genkt_ES_flavour, 1.0)")
+               .Define("kt_jets_ee_genkt_ES_btag",      "JetTaggingUtils::get_btag(kt_jets_ee_genkt_ES_flavour, 0.80)")
+               .Define("kt_jets_ee_genkt_ES_ctag_true", "JetTaggingUtils::get_ctag(kt_jets_ee_genkt_ES_flavour, 1.0)") 
+               .Define("kt_jets_ee_genkt_ES_ctag",      "JetTaggingUtils::get_ctag(kt_jets_ee_genkt_ES_flavour, 0.10)") 
+               
+               
                
 
                #====================================================================================================================
@@ -205,6 +228,7 @@ class RDFanalysis():
                .Define("jade_jets_ee_ES_flavour",   "JetTaggingUtils::get_flavour(jade_jets_ee_ES, Particle)")
                .Define("jade_jets_ee_ES_btag_true", "JetTaggingUtils::get_btag(jade_jets_ee_ES_flavour, 1.0)")
                .Define("jade_jets_ee_ES_btag",      "JetTaggingUtils::get_btag(jade_jets_ee_ES_flavour, 0.80)")
+               .Define("jade_jets_ee_ES_ctag_true", "JetTaggingUtils::get_ctag(jade_jets_ee_ES_flavour, 1.0)")
                .Define("jade_jets_ee_ES_ctag",      "JetTaggingUtils::get_ctag(jade_jets_ee_ES_flavour, 0.10)")
               
 
@@ -287,9 +311,21 @@ class RDFanalysis():
                 "cambridge_jets_ee_genkt_ES_pz",
                 "cambridge_jets_ee_genkt_ES_theta",
                 "cambridge_jets_ee_genkt_ES_flavour",
-                "cambridge_jets_ee_genkt_ES_btag",
                 "cambridge_jets_ee_genkt_ES_btag_true",
+                "cambridge_jets_ee_genkt_ES_btag",
+                "cambridge_jets_ee_genkt_ES_ctag_true",
                 "cambridge_jets_ee_genkt_ES_ctag",
+                "kt_jetconstituents_ee_genkt_ES", 
+                "kt_jets_ee_genkt_ES_e",
+                "kt_jets_ee_genkt_ES_px",
+                "kt_jets_ee_genkt_ES_py",
+                "kt_jets_ee_genkt_ES_pz",
+                "kt_jets_ee_genkt_ES_theta",
+                "kt_jets_ee_genkt_ES_flavour",
+                "kt_jets_ee_genkt_ES_btag_true",
+                "kt_jets_ee_genkt_ES_btag",
+                "kt_jets_ee_genkt_ES_ctag_true",
+                "kt_jets_ee_genkt_ES_ctag",
                 "jade_jetconstituents_ee_ES", 
                 "jade_jets_ee_ES_e",
                 "jade_jets_ee_ES_px",
@@ -297,8 +333,9 @@ class RDFanalysis():
                 "jade_jets_ee_ES_pz",
                 "jade_jets_ee_ES_theta",
                 "jade_jets_ee_ES_flavour",
-                "jade_jets_ee_ES_btag",
                 "jade_jets_ee_ES_btag_true",
+                "jade_jets_ee_ES_btag",
+                "jade_jets_ee_ES_ctag_true",
                 "jade_jets_ee_ES_ctag",
                 "RP_thrustangle", 
                 "RP_sphericityangle",
