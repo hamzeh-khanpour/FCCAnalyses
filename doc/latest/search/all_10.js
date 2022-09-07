@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r_0',['R',['../classcontrib_1_1_valencia_info.html#a9985685d7eadc5ebe7b846e376ed43b9',1,'contrib::ValenciaInfo::R()'],['../classcontrib_1_1_valencia_plugin.html#a85faaa3e156cf408c7382f002b0826d8',1,'contrib::ValenciaPlugin::R()'],['../classcontrib_1_1_valencia_brief_jet.html#af5f006f4c085d06ec28407b8f8dd841e',1,'contrib::ValenciaBriefJet::R()']]],
+  ['r_0',['R',['../classcontrib_1_1_valencia_plugin.html#a85faaa3e156cf408c7382f002b0826d8',1,'contrib::ValenciaPlugin::R()'],['../classcontrib_1_1_valencia_info.html#a9985685d7eadc5ebe7b846e376ed43b9',1,'contrib::ValenciaInfo::R()'],['../classcontrib_1_1_valencia_brief_jet.html#af5f006f4c085d06ec28407b8f8dd841e',1,'contrib::ValenciaBriefJet::R()']]],
   ['r_5f_1',['R_',['../classcontrib_1_1_valencia_info.html#a79d6105f376cedbb2e53183a9c26c61c',1,'contrib::ValenciaInfo']]],
   ['readme_2emd_2',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
   ['reco_5fchi2_3',['reco_chi2',['../struct_f_c_c_analyses_1_1_vertexing_utils_1_1_f_c_c_analyses_vertex.html#a7808a3d5dd0616b5a2bda7bb2398bd2f',1,'FCCAnalyses::VertexingUtils::FCCAnalysesVertex']]],
@@ -16,6 +16,8 @@ var searchData=
   ['reconstructedparticle2track_2eh_13',['ReconstructedParticle2Track.h',['../_reconstructed_particle2_track_8h.html',1,'']]],
   ['reginv3_14',['RegInv3',['../namespace_f_c_c_analyses_1_1_vertex_fitter_simple.html#a524c4b324b1a10a5357d7b2cc46024ef',1,'FCCAnalyses::VertexFitterSimple']]],
   ['remove_15',['remove',['../namespace_f_c_c_analyses_1_1_reconstructed_particle.html#af9cc5a8b7d1b85d98c2fcbb4634c799a',1,'FCCAnalyses::ReconstructedParticle']]],
-  ['resonancebuilder_16',['resonanceBuilder',['../struct_f_c_c_analyses_1_1_reconstructed_particle_1_1resonance_builder.html',1,'FCCAnalyses::ReconstructedParticle::resonanceBuilder'],['../struct_f_c_c_analyses_1_1_reconstructed_particle_1_1resonance_builder.html#a28dd051f0f6e67741af0fdd781b6ac75',1,'FCCAnalyses::ReconstructedParticle::resonanceBuilder::resonanceBuilder()']]],
-  ['run_5fclustering_17',['run_clustering',['../classcontrib_1_1_valencia_plugin.html#a3954050e695fd7cddca110de0800a241',1,'contrib::ValenciaPlugin']]]
+  ['replace_5finf_5fvalue_16',['replace_inf_value',['../struct_weaver_interface_1_1_preprocess_params_1_1_var_info.html#a33f5b1b108b0462c3f8cd25ee1399cbf',1,'WeaverInterface::PreprocessParams::VarInfo']]],
+  ['resonancebuilder_17',['resonanceBuilder',['../struct_f_c_c_analyses_1_1_reconstructed_particle_1_1resonance_builder.html',1,'FCCAnalyses::ReconstructedParticle::resonanceBuilder'],['../struct_f_c_c_analyses_1_1_reconstructed_particle_1_1resonance_builder.html#a28dd051f0f6e67741af0fdd781b6ac75',1,'FCCAnalyses::ReconstructedParticle::resonanceBuilder::resonanceBuilder()']]],
+  ['run_18',['run',['../class_o_n_n_x_runtime.html#a8badef26ee292f7606f281df625fee30',1,'ONNXRuntime::run()'],['../class_weaver_interface.html#aca705cd6d56c7b629099004e12053241',1,'WeaverInterface::run()']]],
+  ['run_5fclustering_19',['run_clustering',['../classcontrib_1_1_valencia_plugin.html#a3954050e695fd7cddca110de0800a241',1,'contrib::ValenciaPlugin']]]
 ];
