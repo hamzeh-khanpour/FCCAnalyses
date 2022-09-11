@@ -10,7 +10,7 @@ processList = {
 #Mandatory: Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics
 prodTag     = "FCCee/spring2021/IDEA/" 
 
-#Optional: output directory, default is local running directory     
+#Optional: output directory, default is local running directory 
 outputDir   = "/eos/experiment/fcc/ee/tmp/Hamzeh-Khanpour-FCNC-FCCee/AFB_FCCee_Udine_ICTP_9/" 
 
 #Optional: analysisName, default is ""
@@ -20,15 +20,15 @@ outputDir   = "/eos/experiment/fcc/ee/tmp/Hamzeh-Khanpour-FCNC-FCCee/AFB_FCCee_U
 nCPUS       = 8
 
 #Optional running on HTCondor, default is False
-runBatch    = False
-#runBatch    = True
+#runBatch    = False
+runBatch    = True
 
 #Optional batch queue name when running on HTCondor, default is workday
 #batchQueue = "longlunch"
 
 #Optional computing account when running on HTCondor, default is group_u_FCC.local_gen
 #compGroup = "group_u_FCC.local_gen"
-#compGroup = "group_u_THEORY.u_t3" 
+compGroup = "group_u_THEORY.u_t3" 
 
 #Optional test file
 #testFile ="root://eospublic.cern.ch//eos/experiment/fcc/ee/generation/DelphesEvents/spring2021/IDEA/p8_ee_ZH_ecm240/events_101027117.root"
