@@ -10,7 +10,7 @@ processList = {
 #Mandatory: Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics
 prodTag     = "FCCee/spring2021/IDEA/" 
 
-#Optional: output directory, default is local running directory 
+#Optional: output directory, default is local running directory     
 outputDir   = "/eos/experiment/fcc/ee/tmp/Hamzeh-Khanpour-FCNC-FCCee/AFB_FCCee_Udine_ICTP_9/" 
 
 #Optional: analysisName, default is ""
