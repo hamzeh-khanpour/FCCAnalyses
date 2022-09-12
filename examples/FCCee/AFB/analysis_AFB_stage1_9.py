@@ -28,7 +28,7 @@ runBatch    = True
 
 #Optional computing account when running on HTCondor, default is group_u_FCC.local_gen
 #compGroup = "group_u_FCC.local_gen"
-compGroup = "group_u_THEORY.u_t3" 
+compGroup = "group_u_THEORY.u_t3"  
 
 #Optional test file
 #testFile ="root://eospublic.cern.ch//eos/experiment/fcc/ee/generation/DelphesEvents/spring2021/IDEA/p8_ee_ZH_ecm240/events_101027117.root"
