@@ -2,7 +2,7 @@
 
 #Mandatory: List of processes
 processList = {
-    'p8_ee_Zbb_ecm91':{'fraction':0.1, 'chunks':10},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
+    'p8_ee_Zbb_ecm91':{'fraction':0.0001},#Run the full statistics in one output file named <outputDir>/p8_ee_Zbb_ecm91.root
 #    'p8_ee_WW_ecm240':{'fraction':0.5, 'chunks':2}, #Run 50% of the statistics in two files named <outputDir>/p8_ee_WW_ecm240/chunk<N>.root
 #    'p8_ee_ZH_ecm240':{'fraction':0.2, 'output':'p8_ee_ZH_ecm240_out'} #Run 20% of the statistics in one file named <outputDir>/p8_ee_ZH_ecm240_out.root (example on how to change the output name)
 }
@@ -21,14 +21,14 @@ nCPUS       = 8
 
 #Optional running on HTCondor, default is False
 #runBatch    = False
-runBatch    = True
+#runBatch    = True
 
 #Optional batch queue name when running on HTCondor, default is workday
 #batchQueue = "longlunch"
 
 #Optional computing account when running on HTCondor, default is group_u_FCC.local_gen
 #compGroup = "group_u_FCC.local_gen"
-compGroup = "group_u_THEORY.u_t3" 
+#compGroup = "group_u_THEORY.u_t3" 
 
 #Optional test file
 #testFile ="root://eospublic.cern.ch//eos/experiment/fcc/ee/generation/DelphesEvents/spring2021/IDEA/p8_ee_ZH_ecm240/events_101027117.root"
@@ -260,9 +260,23 @@ class RDFanalysis():
                 .Define("MET_z", "ReconstructedParticle::get_pz(MissingET)") #z-component of MET
 
 
+#################--------------------------------------------------------------------------
+# MC_b_CosTheta
+#               .Filter("(MC_pdg(5, true)(Particle)==true)")  # only b quark
+#               .Filter("(MC_pdg(-5, true)(Particle)==true)") # only b-bar quark
+
+#               .Define("MC_px_b",       "MCParticle::get_px(Particle)")
+#               .Define("MC_py_b",       "MCParticle::get_py(Particle)")
+#               .Define("MC_pz_b",       "MCParticle::get_pz(Particle)")
+#               .Define("MC_b_CosTheta",   "MC_px_b/sqrt(MC_px_b*MC_px_b+MC_py_b*MC_py_b+MC_pz_b*MC_pz_b)")
+
 
 #################--------------------------------------------------------------------------
 
+
+               #############################################
+               ##              Build the thrust           ##
+               #############################################
 
 
                .Define("RP_px_all_objects",         "ReconstructedParticle::get_px(ReconstructedParticles)")
@@ -271,7 +285,12 @@ class RDFanalysis():
                .Define("RP_e_all_objects",          "ReconstructedParticle::get_e(ReconstructedParticles)")
 
 
-               .Define('EVT_thrust',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
+               .Define('EVT_thrustNP',      'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
+               .Define('RP_thrustangleNP',  'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')               
+               .Define("EVT_thrust",        'Algorithms::getThrustPointing(1)(RP_thrustangleNP, RP_e_all_objects, EVT_thrustNP)')
+               .Define('RP_thrustangle',    'Algorithms::getAxisCosTheta(EVT_thrust, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
+
+               
                .Define('EVT_thrust_Mag',  'EVT_thrust.at(0)')
                .Define('EVT_thrust_x',    'EVT_thrust.at(1)')
                .Define('EVT_thrust_x_err','EVT_thrust.at(2)')
@@ -282,11 +301,13 @@ class RDFanalysis():
                
 
 
-               #.Define("EVT_thrustNP",         'Algorithms::minimize_thrust("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
-               #.Define("RP_thrustangleNP",     'Algorithms::getAxisCosTheta(EVT_thrustNP, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
-               #.Define("EVT_thrust",           'Algorithms::getThrustPointing(1)(RP_thrustangleNP, RP_e_all_objects, EVT_thrustNP)')
+#################--------------------------------------------------------------------------
 
 
+               #############################################
+               ##              Build the sphericity       ##
+               #############################################
+               
                
                .Define('EVT_sphericity',      'Algorithms::minimize_sphericity("Minuit2","Migrad")(RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
                .Define('EVT_sphericity_Mag',  'EVT_sphericity.at(0)')
@@ -297,9 +318,7 @@ class RDFanalysis():
                .Define('EVT_sphericity_z',    'EVT_sphericity.at(5)')
                .Define('EVT_sphericity_z_err','EVT_sphericity.at(6)')
                
-
-               .Define('RP_thrustangle', 'Algorithms::getAxisCosTheta(EVT_thrust, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)')
-               .Define('RP_sphericityangle', 'Algorithms::getAxisCosTheta(EVT_sphericity, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)') 
+               .Define('RP_sphericityangle',  'Algorithms::getAxisCosTheta(EVT_sphericity, RP_px_all_objects, RP_py_all_objects, RP_pz_all_objects)') 
                
 
 
@@ -334,6 +353,8 @@ class RDFanalysis():
                 "jade_jets_ee_ES_btag",
                 "jade_jets_ee_ES_ctag_true",
                 "jade_jets_ee_ES_ctag",
+#                "MC_b_CosTheta",
+#                "RP_CosTheta",
                 "RP_thrustangle", 
                 "RP_sphericityangle",
                 "EVT_thrust_x", "EVT_thrust_y", "EVT_thrust_z", "EVT_thrust_Mag",
