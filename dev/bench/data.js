@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1666332808556,
+  "lastUpdate": 1669577106854,
   "repoUrl": "https://github.com/hamzeh-khanpour/FCCAnalyses",
   "entries": {
     "Benchmark": [
@@ -7896,6 +7896,51 @@ window.BENCHMARK_DATA = {
             "name": "nightly | Events processed per second: examples/FCCee/test",
             "value": 5.845105778294679,
             "unit": "Evt/s"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "58598278+hamzeh-khanpour@users.noreply.github.com",
+            "name": "Hamzeh Khanpour",
+            "username": "hamzeh-khanpour"
+          },
+          "committer": {
+            "email": "58598278+hamzeh-khanpour@users.noreply.github.com",
+            "name": "Hamzeh Khanpour",
+            "username": "hamzeh-khanpour"
+          },
+          "distinct": true,
+          "id": "26cee4be575ff0eedbefa136b0797950d8d65c8e",
+          "message": "Merge branch 'master' of https://github.com/hamzeh-khanpour/FCCAnalyses",
+          "timestamp": "2022-11-27T22:46:13+03:30",
+          "tree_id": "e92126e609d84a6c9b0f2cfa24992effdda6dce2",
+          "url": "https://github.com/hamzeh-khanpour/FCCAnalyses/commit/26cee4be575ff0eedbefa136b0797950d8d65c8e"
+        },
+        "date": 1669577104775,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "prod | Time spent running the analysis: examples/FCCee/higgs/mH-recoil/mumu",
+            "value": 13.12891435623169,
+            "unit": "Seconds",
+            "range": 10,
+            "extra": "Analysis path: examples/FCCee/higgs/mH-recoil/mumu"
+          },
+          {
+            "name": "prod | Time spent running the analysis: examples/FCCee/flavour/Bc2TauNu",
+            "value": 17.67061471939087,
+            "unit": "Seconds",
+            "range": 10,
+            "extra": "Analysis path: examples/FCCee/flavour/Bc2TauNu"
+          },
+          {
+            "name": "prod | Time spent running the analysis: examples/FCCee/test",
+            "value": 13.10210371017456,
+            "unit": "Seconds",
+            "range": 10,
+            "extra": "Analysis path: examples/FCCee/test"
           }
         ]
       }
