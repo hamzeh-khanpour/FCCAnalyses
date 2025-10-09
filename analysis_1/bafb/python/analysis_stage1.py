@@ -17,7 +17,7 @@ class Analysis:
     def __init__(self, args):
         # -------------------- configurable knobs --------------------
         self.kappa     = float(getattr(args, "kappa", 0.5))   # jet-charge exponent
-        self.nThreads  = int(getattr(args, "n_threads", 4))   # respected by FCCAnalyses managed mode
+        self.nThreads  = int(getattr(args, "n_threads", 50))   # respected by FCCAnalyses managed mode
         self.outputDir = "outputs/bafb/stage1"
         self.doTree    = True   # snapshot slim tree
         self.doSkim    = False
