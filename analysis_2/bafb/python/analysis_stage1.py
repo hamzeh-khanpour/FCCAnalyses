@@ -24,7 +24,7 @@ class Analysis:
         # -------------------- configurable knobs --------------------
         self.kappa = float(getattr(args, "kappa", 0.5))        # jet-charge exponent
         self.sprime_cut = float(getattr(args, "sprime_cut", 0.0))  # visible s'/s cut; 0 disables
-        self.nThreads = int(getattr(args, "n_threads", 50))     # respected by FCCAnalyses managed mode
+        self.nThreads = int(getattr(args, "n_threads", 4))     # respected by FCCAnalyses managed mode
 
         # Managed-mode boilerplate
         self.outputDir = output_dir
