@@ -1,31 +1,79 @@
-## AFBb @ Z Pole — Exclusive `Z → b b̄` (No Backgrounds)
+# AFBb @ Z Pole — Exclusive `Z → b b̄` (No Backgrounds)
 
-**Goal:** measure the forward–backward asymmetry of b quarks, (A_{FB}^b), at the Z pole using an **exclusive** (Z\to b\bar b) sample with **no backgrounds**.
-**Flow:** Stage-1 (feature building) → Stage-2 (binned Poisson fit, plots, JSON/TXT).
+> Forward–backward asymmetry of b quarks, (A_{FB}^b), measured at the Z pole using an **exclusive** (Z\to b\bar b) sample with **no backgrounds**.
+> Pipeline: **Stage-1** (feature building) → **Stage-2** (fit & reporting).
 
 ---
 
-## Quick Start
+## Table of Contents
 
-Running analysis scripts is done with the `fccanalysis` command shipped in the Key4hep stack.
+* [Physics Overview](#physics-overview)
+* [Repository Layout](#repository-layout)
+* [Environment](#environment)
+* [Quick Start](#quick-start)
+* [Commands](#commands)
 
-```sh
-# 1) Environment
-source /cvmfs/sw.hsf.org/key4hep/setup.sh
+  * [Run everything](#run-everything)
+  * [Run Stage-1 only](#run-stage1-only)
+  * [Run Stage-2 only](#run-stage2-only)
+* [Configuration](#configuration)
 
-# 2) End-to-end run (Stage-1 → Stage-2)
-chmod +x analysis_3/bafb/python/run.sh
-./analysis_3/bafb/python/run.sh --input-file-list my_bbbar_files.txt --n-threads 100
+  * [Stage-1 knobs](#stage1-knobs)
+  * [Stage-2 knobs](#stage2-knobs)
+* [Outputs](#outputs)
+* [Method Details](#method-details)
+
+  * [Signed angle and dilution](#signed-angle-and-dilution)
+  * [Fit model](#fit-model)
+  * [Acceptance folding (optional)](#acceptance-folding-optional)
+  * [Expected precision](#expected-precision)
+* [Validation Checklist](#validation-checklist)
+* [Troubleshooting](#troubleshooting)
+* [Reproducibility](#reproducibility)
+* [Citations & Acknowledgements](#citations--acknowledgements)
+
+---
+
+## Physics Overview
+
+At the Z pole (unpolarized beams), the polar angle of the **b quark** relative to the **electron-beam** direction ((+\hat z)) follows
+[
+\frac{dN}{d\cos\theta}\ \propto\ (1+\cos^2\theta);+;\frac{8}{3},A_{FB}^b,\cos\theta .
+]
+
+We:
+
+1. Reconstruct two jets (Durham, **N=2**).
+2. Compute **jet charge** (Q_J(\kappa)) (JC3, charged tracks only).
+3. Choose a **primary** jet, compute (\cos\theta_{\rm primary}) w.r.t. (+\hat z) (electron beam).
+4. Build the **signed** observable (x=\operatorname{sign}(Q_{\rm primary})\cdot \cos\theta_{\rm primary}).
+5. Fit the signed distribution to extract (A_{FB}^b).
+
+**Sign convention:** (+\hat z) along the **electron** beam; lab (\approx) CM at (\sqrt{s}\simeq m_Z).
+**Assumption:** **exclusive** (Z\to b\bar b), **no backgrounds**.
+
+---
+
+## Repository Layout
+
+```
+analysis_3/bafb/python/
+├─ analysis_stage1.py      # Stage-1: clustering, jet charge, signed cosθ, truth hooks, s'/s
+├─ analysis_stage2.py      # Stage-2: binned fit, acceptance folding, plots, JSON/TXT
+├─ analysis_plots.py       # Optional monitors / overlays
+├─ utils_bafb.py           # C++ helpers (jet charge, cosθ) + Python utilities
+├─ run.sh                  # End-to-end runner (Stage-1 → Stage-2)
+└─ my_bbbar_files.txt      # Example input file list (xrootd/paths)
 ```
 
-Expected outputs:
+**Outputs**
 
 ```
 outputs/bafb/
 ├─ stage1/
 │  └─ bafb_stage1.root
 └─ stage2/
-   ├─ afbb_stage2.root            # contains TDirectory "AFBb" with histograms
+   ├─ afbb_stage2.root          # contains TDirectory "AFBb"
    ├─ plots/
    │  ├─ AFBb_signed_fit.png
    │  └─ AFBb_signed_fit.pdf
@@ -36,91 +84,51 @@ outputs/bafb/
 
 ---
 
-## Pre-generated Samples
+## Environment
 
-### Access
+This analysis is designed for the **Key4hep** stack with **FCCAnalyses**.
 
-To have read access to the FCC pre-generated samples, one needs to be subscribed to
-the following e-group (with owner approval): `fcc-eos-access`.
-
-### Example file list
-
-Point the runner to a text file with ROOT paths (XRootD or local):
-
-```
-root://eospublic.cern.ch//eos/experiment/fcc/ee/generation/DelphesEvents/winter2023/IDEA/p8_ee_Zbb_ecm91/events_000083138.root
-root://eospublic.cern.ch//eos/experiment/fcc/ee/generation/DelphesEvents/winter2023/IDEA/p8_ee_Zbb_ecm91/events_000101935.root
-...
+```bash
+source /cvmfs/sw.hsf.org/key4hep/setup.sh
+# (Optionally choose the release matching your campaign.)
 ```
 
-Use it via:
+---
 
-```sh
+## Quick Start
+
+```bash
+chmod +x analysis_3/bafb/python/run.sh
+
+# Use the provided list or create your own.
 ./analysis_3/bafb/python/run.sh --input-file-list my_bbbar_files.txt --n-threads 100
 ```
 
----
-
-## Physics Overview (short)
-
-At the Z pole (unpolarized beams), the b-quark polar angle w.r.t. the **electron-beam** direction ((+\hat z)) follows
-
-```math
-\frac{dN}{d\cos\theta} \propto (1+\cos^2\theta) + \frac{8}{3}\,A_{FB}^b\,\cos\theta.
-```
-
-We:
-
-1. Cluster jets with **Durham, N=2**.
-2. Compute **jet charge** (Q_J(\kappa)) (JC3, charged tracks).
-3. Choose a **primary** jet (higher energy) and build the **signed** observable
-   (x=\mathrm{sign}(Q_{\rm primary})\cdot\cos\theta_{\rm primary}).
-4. Fit the signed distribution to extract (A_{FB}^b), correcting for jet-charge dilution (\omega):
-   (A_{FB}^{\rm meas}=(1-2\omega),A_{FB}^{\rm true}).
-
-**Convention:** (+\hat z) = electron beam; lab (\approx) CM at (\sqrt{s}\simeq m_Z).
-**Assumption:** exclusive (Z\to b\bar b), **no backgrounds**.
+* **Stage-1** produces `outputs/bafb/stage1/bafb_stage1.root`
+* **Stage-2** produces fit results, plots, and `outputs/bafb/stage2/afbb_stage2.root`
 
 ---
 
-## Repository Layout
+## Commands
 
-```
-analysis_3/bafb/python/
-├─ analysis_stage1.py      # Stage-1: clustering, jet charge, signed cosθ, truth hooks, s'/s
-├─ analysis_stage2.py      # Stage-2: binned fit, acceptance folding (optional), plots, JSON/TXT
-├─ analysis_plots.py       # Optional monitors / overlays
-├─ utils_bafb.py           # C++ helpers (jet charge, cosθ) + Python utilities
-├─ run.sh                  # End-to-end runner
-└─ my_bbbar_files.txt      # Example input file list
+### Run everything
+
+```bash
+./analysis_3/bafb/python/run.sh --input-file-list my_bbbar_files.txt --n-threads 100
 ```
 
----
+### Run Stage-1 only
 
-## Run Stage-1 only
-
-```sh
-source /cvmfs/sw.hsf.org/key4hep/setup.sh
+```bash
 fccanalysis run analysis_3/bafb/python/analysis_stage1.py \
   --input-file-list my_bbbar_files.txt \
   --n-threads 100 \
   --output outputs/bafb/stage1/bafb_stage1.root
 ```
 
-**Key Stage-1 options (may vary by version):**
+### Run Stage-2 only
 
-* `--kappa 0.3` : JC3 exponent (default `0.3`)
-* `--track-p-min 0.5` : track (p_{\min}) [GeV] (default `0.5`)
-* `--opposite-sign 0|1` : require opposite jet-charge signs (default `0`)
-* `--sprime-cut <x>` : minimal (s'/s) (default `0.0`)
-* `--sqrts 91.1876` : (\sqrt{s}) for (s'/s) denominator (default (m_Z))
-
----
-
-## Run Stage-2 only
-
-```sh
-source /cvmfs/sw.hsf.org/key4hep/setup.sh
+```bash
 fccanalysis run analysis_3/bafb/python/analysis_stage2.py \
   --input outputs/bafb/stage1/bafb_stage1.root \
   --n-threads 1 \
@@ -130,58 +138,136 @@ fccanalysis run analysis_3/bafb/python/analysis_stage2.py \
   --fold_acceptance ""
 ```
 
-**Stage-2 options:**
-
-* `--nbins <int>` : signed (\cos\theta) bins (default `20`)
-* `--omega <float>` : wrong-sign prior mean (if truth absent) (default `0.20`)
-* `--omega_sigma <float>` : Gaussian prior width; if `>0`, profile (\omega)
-* `--sprime_min <float>` : minimal (s'/s) (default `-1.0` → off)
-* `--fold_acceptance <json>` : path to acceptance file with
-
-  ```json
-  { "edges":[...], "eff":[...] }  // len(edges)=nbins+1, len(eff)=nbins
-  ```
+> Use `--n-threads 1` for deterministic logs; multithreading isn’t required in Stage-2.
 
 ---
 
-## Outputs (Stage-2)
+## Configuration
 
-* **ROOT:** `outputs/bafb/stage2/afbb_stage2.root`
-  TDirectory **`AFBb/`** contains:
+### Stage-1 knobs
 
-  * `h_signed_cosTheta`
-  * `h_fit_overlay`
-  * (monitors) e.g. `h_Q_primary`, `resp_truth_vs_signed`, etc.
-* **Plots:** `outputs/bafb/stage2/plots/AFBb_signed_fit.{png,pdf}`
-* **Results:** `outputs/bafb/stage2/results/AFBb_fit.{json,txt}` (includes provenance)
+* `--kappa 0.3` : JC3 exponent (default `0.3`)
+* `--track-p-min 0.5` : track momentum threshold in GeV (default `0.5`)
+* `--opposite-sign 0|1` : require opposite jet-charge signs (default `0`)
+* `--sprime-cut <x>` : minimal (s'/s) (default `0.0`)
+* `--sqrts 91.1876` : (\sqrt{s}) used in (s'/s) denominator (default `m_Z`)
+
+### Stage-2 knobs
+
+* `--nbins <int>` : signed (\cos\theta) bins (default `20`)
+* `--omega <float>` : wrong-sign prior mean if truth absent (default `0.20`)
+* `--omega_sigma <float>` : Gaussian prior width; if `>0`, profile (\omega)
+* `--sprime_min <float>` : minimal (s'/s) at Stage-2 selection (default `-1.0` → off)
+* `--fold_acceptance <path.json>` : fold (\varepsilon(x)) into the template (optional)
+
+---
+
+## Outputs
+
+* **ROOT**: `outputs/bafb/stage2/afbb_stage2.root` with a real directory `AFBb/`:
+
+  * `AFBb/h_signed_cosTheta`
+  * `AFBb/h_fit_overlay`
+  * monitors (no slashes in object names)
+* **Plots**: `outputs/bafb/stage2/plots/AFBb_signed_fit.{png,pdf}`
+* **Results**: `outputs/bafb/stage2/results/AFBb_fit.{json,txt}`
+
+---
+
+## Method Details
+
+### Signed angle and dilution
+
+* **Jet charge (JC3, charged only)**
+  [
+  Q_J(\kappa)=\frac{\sum_{i\in J} q_i,|\vec p_i|^\kappa}{\sum_{i\in J} |\vec p_i|^\kappa},\quad
+  \kappa=0.3\ \text{(default)}.
+  ]
+* **Signed observable**
+  (x=\operatorname{sign}(Q_{\rm primary})\cdot \cos\theta_{\rm primary}), where the **primary** jet is the higher-energy jet.
+* **Dilution**
+  [
+  A_{FB}^{\rm meas}=(1-2\omega),A_{FB}^{\rm true},\qquad
+  A_{FB}^{\rm true}=\frac{A_{FB}^{\rm meas}}{1-2\omega}.
+  ]
+  If truth tags exist, (\omega) is measured; otherwise use `--omega` prior (optionally profiled with `--omega_sigma`).
+
+### Fit model
+
+We fit the signed distribution with
+[
+f(x\mid A_{FB}^{\rm true},\omega)\ \propto\ (1+x^2)+\frac{8}{3}(1-2\omega),A_{FB}^{\rm true},x,
+\quad x\in[-1,1],
+]
+using a **binned Poisson** likelihood (default 20 bins).
+
+### Acceptance folding (optional)
+
+Supply a JSON:
+
+```json
+{
+  "edges": [-1.0, -0.9, ..., 1.0],
+  "eff":   [0.98, 0.99, ..., 0.97]
+}
+```
+
+with `len(edges)=nbins+1`, `len(eff)=nbins`. The template is multiplied by `eff` per bin and renormalized.
+
+### Expected precision
+
+Statistical (no dilution):
+[
+\sigma(A_{FB}) \simeq \frac{\sqrt{1-A_{FB}^2}}{\sqrt{N}}.
+]
+With dilution (\omega), inflate by (1/(1-2\omega)).
+Example: (N=10^6), (A\approx0.1), (\omega=0.20\Rightarrow(1-2\omega)=0.6) → (\sigma(A)\approx 0.0017).
+
+---
+
+## Validation Checklist
+
+* **Truth vs reco closure:** compare (A_{FB}^{\rm true}) from truth-tag vs reconstructed signed histogram.
+* **(\omega(|x|)) shape:** monitor wrong-sign fraction vs (|x|).
+* **(\kappa) scan:** (0.2)–(0.5); choose default on precision × robustness.
+* **Axis robustness:** (if enabled) thrust vs Durham axis signing.
+* **ISR window:** vary (s'/s) cuts and check stability vs efficiency.
+* **Toys / bootstrap:** pull width (\sim1); coverage at the quoted error.
 
 ---
 
 ## Troubleshooting
 
-* **Null hist / canvas draw errors:**
-  We avoid slashes in histogram **names** and write under a real `AFBb/` directory.
-  Histograms used after file close are detached with:
+* **`CPyCppyy_NoneType has no attribute 'Draw'`**
+  ROOT histogram **names must not contain “/”**. We create a real `AFBb/` directory in the ROOT file and use **slash-free object names**.
+  Also, histograms drawn **after closing** the file are detached via:
 
-  ```cpp
-  h->SetDirectory(0);
+  ```python
+  h.SetDirectory(0)
   ```
-* **Overlay text shows `Â±`:**
-  The canvas uses Unicode ± (`\u00B1`); TXT uses `+/-`.
+
+* **Overlay text shows `Â±`**
+  Canvas text uses Unicode `±` (`\u00B1`). TXT files use ASCII `+/-`.
+
+* **Empty histograms**
+  Relax `--sprime_min` or fiducials; verify Stage-1 outputs exist and contain `signed_cos`.
+
+* **Acceptance JSON rejected**
+  Ensure `edges`/`eff` lengths match the configured `nbins`.
 
 ---
 
-## Validation (quick checklist)
+## Reproducibility
 
-* Truth vs reco closure on (A_{FB}) (if truth branches present)
-* (\omega(|x|)) monitoring
-* (\kappa) scan (0.2–0.5)
-* ISR window scan via `--sprime_min`
-* (Optional) acceptance folding JSON consistency (`edges/eff` lengths)
+* Deterministic RDataFrame flow (no RNG).
+* Stage-2 writes a **provenance** block in JSON (includes Stage-1 `cfg_*` echoes when present).
 
 ---
 
-## License / Citation
+## Citations & Acknowledgements
 
-Please cite FCCAnalyses, the Key4hep stack, and FastJet where appropriate.
-If you use this analysis or parts of it, reference this repository and branch.
+* **FCCAnalyses**, **Key4hep** software stack.
+* **FastJet** for jet clustering.
+* FCC-ee community inputs on (A_{FB}^b) methodology.
+
+> If you use this analysis or parts of it, please cite FCCAnalyses and relevant FCC-ee documentation, and reference this repository.
