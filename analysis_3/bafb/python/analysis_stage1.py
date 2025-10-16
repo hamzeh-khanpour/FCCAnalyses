@@ -133,7 +133,7 @@ class Analysis:
             d.Define("primary_idx", " (jet_e.size()>1) ? ((jet_e[0] >= jet_e[1]) ? 0 : 1) : 0 ")
              .Define("cos_primary"," (primary_idx==0) ? cos0 : cos1 ")
              .Define("Q_primary",  " (primary_idx==0) ? Q0   : Q1 ")
-             .Define("signed_cos", " (Q_primary>0.f ? 1.f : (Q_primary<0.f ? -1.f : 0.f)) * cos_primary ")
+             .Define("signed_cos", " -(Q_primary>0.f ? 1.f : (Q_primary<0.f ? -1.f : 0.f)) * cos_primary ")
         )
 
         # ---- truth helpers (closure) ----
